@@ -10,15 +10,16 @@ import userRoutes from "./routes/userRoutes.js";
 // set up express and middleware
 const app = express();
 dotenv.config();
-app.use(cors());
 
 // controls the maximum request body size
 app.use(bodyParser.json({ limit: "50mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
+app.use(cors());
+
 // set up routes
 app.use("/movies", movieRoutes);
-app.use("/users", userRoutes);
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
