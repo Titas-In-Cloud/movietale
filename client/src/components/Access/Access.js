@@ -3,9 +3,9 @@ import { Button, Paper, Grid, Typography, Container } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import useStyles from "./accessStyles";
 import Input from "./Input";
 import { register, login } from "../../actions/accessActions";
+import useStyles from "./accessStyles";
 
 const initialState = { firstName: "", lastName: "", email: "", password: "", confirmPassword: "" };
 

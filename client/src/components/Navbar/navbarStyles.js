@@ -5,10 +5,10 @@ export default makeStyles((theme) => ({
         margin: "20px 20px auto auto",
         display: "flex",
         flexDirection: "row",
-        justifyContent: 'space-between',
+        justifyContent: "space-between",
         padding: "10px 10px 10px 10px",
         backgroundColor: "transparent",
-        alignItems: 'center',
+        alignItems: "center",
         boxShadow: "none",
         [theme.breakpoints.down('sm')]: {
             flexDirection: "column",
@@ -30,18 +30,18 @@ export default makeStyles((theme) => ({
             paddingTop: theme.spacing(2),
         },
     },
+    toolbarBox: {
+        [theme.breakpoints.down("sm")]: {
+            flexDirection: "row",
+        },
+        paddingRight: theme.spacing(2),
+    },
     toolbarButton: {
         color: "#000000",
         margin: theme.spacing(1, 2, 1, 2),
         borderRadius: "10px",
         height: "40%",
         fontWeight: "400",
-    },
-    toolbarBox: {
-        [theme.breakpoints.down("sm")]: {
-            flexDirection: "row",
-        },
-        paddingRight: theme.spacing(2),
     },
     accessButton: {
         backgroundColor: "#000000",
@@ -61,9 +61,9 @@ export default makeStyles((theme) => ({
         color: "#000000",
     },
     input: {
-        transition: theme.transitions.create('width'),
+        transition: theme.transitions.create("width"),
         width: "8ch",
-        '&:focus': {
+        "&:focus": {
             width: "20ch",
         },
     },
