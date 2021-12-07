@@ -13,6 +13,10 @@ Coming soon...
 ### Usage
 Coming soon...
 
+#### Admin details
+Email: movietale@support.com <br />
+Password: bestadminpassword123 <br />
+
 ### License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/) see the LICENSE.md file
 for more details.
