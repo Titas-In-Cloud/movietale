@@ -22,6 +22,12 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    let isAdmin = false;
+
+    // checks if the user is admin, sets isAdmin value to true if yes, otherwise isAdmin value remains false.
+    if (user) {
+        isAdmin = user.result.role === "admin";
+    }
 
     // commands to log out user.
     const logout = () => {
@@ -37,9 +43,7 @@ const Navbar = () => {
         const token = user?.token;
 
         if(token) {
-            const decodedToken = decode(token);
-
-            if(decodedToken.exp * 1000 < new Date().getTime()) logout();
+            if(decode(token).exp * 1000 < new Date().getTime()) logout();
         }
 
         setUser(JSON.parse(localStorage.getItem("profile")));
@@ -49,14 +53,16 @@ const Navbar = () => {
 
     return(
         <AppBar className={classes.appBar} position="static">
-            <Link to="/" className={classes.brandContainer}>
+            <Link to="/">
                 <img className={classes.logo} src={logo} alt="movietale" />
             </Link>
             <Toolbar className={classes.toolbar}>
                 <div className={classes.toolbarBox}>
                     <Button className={classes.toolbarButton} component={Link} to="./movies">Movies</Button>
-                    <Button className={classes.toolbarButton} component={Link} to="./coming-soon">Coming Soon</Button>
-                    {user && (
+                    {!isAdmin && (
+                        <Button className={classes.toolbarButton} component={Link} to="./coming-soon">Coming Soon</Button>
+                    )}
+                    {user && !isAdmin && (
                         <Button className={classes.toolbarButton} component={Link} to="./watchlist">Watchlist</Button>
                     )}
                 </div>

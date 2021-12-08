@@ -3,8 +3,9 @@ import { Button, Paper, Grid, Typography, Container } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Input from "./Input";
 import { register, login } from "../../actions/accessActions";
+
+import Input from "./Input";
 import useStyles from "./accessStyles";
 
 const initialState = { firstName: "", lastName: "", email: "", password: "", confirmPassword: "" };
@@ -31,7 +32,6 @@ const Access = () => {
         e.preventDefault();
 
         if(isRegistration) {
-            console.log(formData);
             dispatch(register(formData, navigate));
         } else {
             dispatch(login(formData, navigate));
@@ -45,7 +45,7 @@ const Access = () => {
 
     // switches the registration and login forms.
     const switchMode = () => {
-        setIsRegistration((prevIsSignup) => !prevIsSignup);
+        setIsRegistration((prevIsRegistration) => !prevIsRegistration);
         showPassword && handleShowPassword(false);
     };
 

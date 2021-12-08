@@ -52,8 +52,6 @@ export const getMovies = async (req, res) => {
     try {
         const movies = await MovieModel.find();
 
-        console.log(movies);
-
         res.status(200).json(movies);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -68,12 +66,17 @@ export const getMovies = async (req, res) => {
  * @returns {Promise<void>} newly created movie object.
  */
 export const createMovie = async (req, res) => {
-    const movie = req.body;
-
-    const newMovie = new MovieModel({ ...movie });
+    const { title, description, director, census, genres, poster, showTimes} = req.body;
 
     try {
-        await newMovie.save();
+        const newMovie = await MovieModel.create({
+            title: title,
+            description: description,
+            director: director,
+            census: census, genres:
+            genres, poster: poster,
+            showTimes: showTimes
+        });
 
         res.status(201).json(newMovie);
     } catch (error) {

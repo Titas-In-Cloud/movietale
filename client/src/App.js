@@ -7,13 +7,15 @@ import Home from "./components/Home/Home";
 import Access from "./components/Access/Access";
 
 /**
- * Has all elements of the website and returns it to display.
+ * Has all elements of the website and returns it for display.
  * Has Routes element included to manage the website routing system.
  *
- * @returns {JSX.Element} returns all website elements.
+ * @returns {JSX.Element} returns all website elements and routes.
  * @constructor
  */
 const App = () => {
+    const user = JSON.parse(localStorage.getItem("profile"));
+
     return (
         <BrowserRouter>
             <Container maxWidth="lg">
@@ -22,7 +24,7 @@ const App = () => {
                     <Route path="/" exact element={<Navigate replace to="/movies" />} />
                     <Route path="/movies" exact element={<Home/>} />
                     <Route path="/movies/search" exact element={<Home/>} />
-                    <Route path="/access" exact element={<Access/>} />
+                    <Route path="/access" exact element={(!user ? <Access/> : <Navigate replace to="/movies" />)} />
                 </Routes>
             </Container>
         </BrowserRouter>

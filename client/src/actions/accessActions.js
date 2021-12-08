@@ -2,7 +2,7 @@ import { ACCESS } from "../constants/actionTypes";
 import * as api from "../api/index";
 
 /**
- * Dispatches login data and sends user to the main pages of the website.
+ * Dispatches login data to the Redux store and sends user to the main page of the website.
  *
  * @param formData login form details.
  * @param navigate useNavigate object which has information on sites that the user been to.
@@ -21,7 +21,7 @@ export const login = (formData, navigate) => async (dispatch) => {
 };
 
 /**
- * Dispatches registration data and sends user to the main page of the website.
+ * Dispatches registration data to the Redux store and sends user to the main page of the website.
  *
  * @param formData register form details.
  * @param navigate useNavigate object which has information on sites that the user been to.
