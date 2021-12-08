@@ -1,11 +1,15 @@
 import { makeStyles} from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+    containerLogin: {
+        paddingBottom: theme.spacing(18),
+    },
     paper: {
-        marginTop: theme.spacing(10),
+        marginTop: theme.spacing(9),
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        borderRadius: "10px",
         padding: theme.spacing(2),
     },
     form: {

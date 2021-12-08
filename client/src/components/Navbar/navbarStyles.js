@@ -30,6 +30,7 @@ export default makeStyles((theme) => ({
     toolbarBox: {
         [theme.breakpoints.down("sm")]: {
             flexDirection: "row",
+            textAlign: "center",
         },
         margin: theme.spacing(0, 2, 0, 2),
     },

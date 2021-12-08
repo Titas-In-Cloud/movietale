@@ -25,9 +25,7 @@ const Navbar = () => {
     let isAdmin = false;
 
     // checks if the user is admin, sets isAdmin value to true if yes, otherwise isAdmin value remains false.
-    if (user) {
-        isAdmin = user.result.role === "admin";
-    }
+    if (user) isAdmin = user.result.role === "admin";
 
     // commands to log out user.
     const logout = () => {
@@ -58,7 +56,7 @@ const Navbar = () => {
             </Link>
             <Toolbar className={classes.toolbar}>
                 <div className={classes.toolbarBox}>
-                    <Button className={classes.toolbarButton} component={Link} to="./movies">Movies</Button>
+                    <Button className={classes.toolbarButton} component={Link} to="/">Movies</Button>
                     {!isAdmin && (
                         <Button className={classes.toolbarButton} component={Link} to="./coming-soon">Coming Soon</Button>
                     )}

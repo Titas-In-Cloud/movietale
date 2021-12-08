@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { getMovies } from "../../actions/moviesActions";
 
+import ImageSlideshow from "../ImageSlideshow/ImageSlideshow";
 import MovieForm from "../MovieForm/MovieForm";
 import Movies from "../Movies/Movies"
 
@@ -20,9 +21,7 @@ const Home = () => {
     let isAdmin = false;
 
     // checks if the user is admin, sets isAdmin value to true if yes, otherwise isAdmin value remains false.
-    if (user) {
-        isAdmin = user.result.role === "admin";
-    }
+    if (user) isAdmin = user.result.role === "admin";
 
     // gets all the movies from the Redux store.
     useEffect(() => {
@@ -31,7 +30,8 @@ const Home = () => {
 
     return (
         <Grow in>
-            <Container maxWidth="lg">
+            <Container>
+                { !isAdmin && <ImageSlideshow /> }
                 { isAdmin && <Container maxWidth="sm"> <MovieForm currentId={currentId} setCurrentId={setCurrentId}/> </Container>}
                 <div>
                     <Grid>

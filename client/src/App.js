@@ -3,6 +3,7 @@ import { Container } from "@material-ui/core";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import Access from "./components/Access/Access";
 
@@ -26,6 +27,7 @@ const App = () => {
                     <Route path="/movies/search" exact element={<Home/>} />
                     <Route path="/access" exact element={(!user ? <Access/> : <Navigate replace to="/movies" />)} />
                 </Routes>
+                <Footer />
             </Container>
         </BrowserRouter>
     );

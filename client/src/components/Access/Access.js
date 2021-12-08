@@ -50,7 +50,7 @@ const Access = () => {
     };
 
     return(
-        <Container component="main" maxWidth="xs">
+        <Container className={ !isRegistration && classes.containerLogin } component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
                 <Typography variant="h5">{isRegistration ? "Register" : "Login"}</Typography>
                 <form className={classes.form} onSubmit={handleSubmit}>
