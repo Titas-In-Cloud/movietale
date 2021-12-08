@@ -6,4 +6,9 @@ export default makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
     },
+    circularProgress: {
+        position: "relative",
+        marginLeft: "50%",
+        marginTop: "12ch",
+    }
 }));

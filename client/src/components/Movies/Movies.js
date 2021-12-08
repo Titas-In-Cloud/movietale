@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
 
-import Movie from "../Movie/Movie";
+import Movie from "./Movie/Movie";
 import useStyles from "./moviesStyles";
 
 /**
@@ -20,7 +20,7 @@ const Movies = ({ setCurrentId }) => {
     if(!movies.length && !isLoading) return "No movies";
 
     return (
-        isLoading ? <CircularProgress /> : (
+        isLoading ? <CircularProgress className={classes.circularProgress} /> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
                 {movies.map((movie) => (
                     <Grid key={movie._id} item xs={12} sm={6} md={4} lg={3}>
