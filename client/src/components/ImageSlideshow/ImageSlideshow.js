@@ -40,8 +40,16 @@ const ImageSlideshow = () => {
     }, [current]);
 
     return(
-        <Container className={classes.slideshow} maxWidth="xl">
-            <div className={classes.slideshowSlider} style={{ webkitTransform: `translate3d(${-current * 150}%, 0, 0)` }}>
+        <Container className={classes.slideshow} maxWidth="lg">
+            <div className={classes.slideshowDots} >
+                {CinemaSlides.map((image, inx) => {
+                    return (
+                        <div key={inx} className={ current === inx ? classes.slideshowDotActive : classes.slideshowDot }
+                             onClick={() => { setCurrent(inx) }}/>
+                    )
+                })}
+            </div>
+            <div className={classes.slideshowSlider} style={{ WebkitTransform: `translate3d(${-current * 150}%, 0, 0)` }}>
                 {CinemaSlides.map((slide, index) => {
                     return (
                         <div className={classes.cinemaPhoto} key={index}>
@@ -52,6 +60,6 @@ const ImageSlideshow = () => {
             </div>
         </Container>
     );
-};
+}
 
 export default ImageSlideshow;

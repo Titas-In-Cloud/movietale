@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grow, Container, Grid } from "@material-ui/core";
+import { Grow, Container } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 import { getMovies } from "../../actions/moviesActions";
@@ -33,11 +33,7 @@ const Home = () => {
             <Container>
                 { !isAdmin && <ImageSlideshow /> }
                 { isAdmin && <Container maxWidth="sm"> <MovieForm currentId={currentId} setCurrentId={setCurrentId}/> </Container>}
-                <div>
-                    <Grid>
-                        <Movies setCurrentId={setCurrentId} />
-                    </Grid>
-                </div>
+                <Movies setCurrentId={setCurrentId} />
             </Container>
         </Grow>
     );
