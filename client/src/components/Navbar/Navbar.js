@@ -57,9 +57,11 @@ const Navbar = () => {
             <Toolbar className={classes.toolbar}>
                 <div className={classes.toolbarBox}>
                     <Button className={classes.toolbarButton} component={Link} to="/">Movies</Button>
-                    {!isAdmin && (
+                    {!isAdmin ? (
                         <Button className={classes.toolbarButton} component={Link} to="./repertoire">Repertoire</Button>
-                    )}
+                    ) :
+                        <Button className={classes.toolbarButton} component={Link} to="./repertoire">Create New Poster</Button>
+                    }
                     {user && !isAdmin && (
                         <Button className={classes.toolbarButton} component={Link} to="./watchlist">Watchlist</Button>
                     )}

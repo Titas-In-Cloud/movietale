@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
         display: "flex",
         flexDirection: "row",
         padding: theme.spacing(0, 3, 5),
+        marginTop: theme.spacing(2),
         overflow: "auto",
         [theme.breakpoints.only("xs")]: {
             padding: theme.spacing(0, 0, 2),

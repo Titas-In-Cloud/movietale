@@ -5,6 +5,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
+import Repertoire from "./components/Repertoire/Repertoire";
 import Access from "./components/Access/Access";
 
 /**
@@ -24,6 +25,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" exact element={<Navigate replace to="/movies" />} />
                     <Route path="/movies" exact element={<Home/>} />
+                    <Route path="/repertoire" exact element={<Repertoire/>} />
                     <Route path="/movies/search" exact element={<Home/>} />
                     <Route path="/access" exact element={(!user ? <Access/> : <Navigate replace to="/movies" />)} />
                 </Routes>

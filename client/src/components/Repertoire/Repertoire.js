@@ -4,9 +4,8 @@ import { useDispatch } from "react-redux";
 
 import { getMovies } from "../../actions/moviesActions";
 
-import ImageSlideshow from "../ImageSlideshow/ImageSlideshow";
+import MovieForm from "../MovieForm/MovieForm";
 import Movies from "../Movies/Movies"
-import HomeButtons from "../HomeButtons/HomeButtons";
 
 /**
  * Exports website's main home page element.
@@ -14,8 +13,8 @@ import HomeButtons from "../HomeButtons/HomeButtons";
  * @returns {JSX.Element} main home page element.
  * @constructor
  */
-const Home = () => {
-    const [setCurrentId] = useState(null);
+const Repertoire = () => {
+    const [currentId, setCurrentId] = useState(null);
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem("profile"));
     let isAdmin = false;
@@ -31,12 +30,11 @@ const Home = () => {
     return (
         <Grow in>
             <Container>
-                { !isAdmin && <ImageSlideshow /> }
-                <HomeButtons />
+                { isAdmin && <Container maxWidth="sm"> <MovieForm currentId={currentId} setCurrentId={setCurrentId}/> </Container>}
                 <Movies setCurrentId={setCurrentId} />
             </Container>
         </Grow>
     );
 }
 
-export default Home;
+export default Repertoire;

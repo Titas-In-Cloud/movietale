@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import { Container, Grid, CircularProgress } from "@material-ui/core";
 
-import HomeButtons from "../HomeButtons/HomeButtons";
 import Movie from "./Movie/Movie";
 import useStyles from "./moviesStyles";
 
@@ -27,7 +26,6 @@ const Movies = ({ setCurrentId }) => {
 
     return (
         <Container className={classes.mainContainer}>
-            <HomeButtons />
             {isLoading ? <CircularProgress className={classes.circularProgress}/> : (
                 <Grid className={classes.moviesContainer} container alignItems="stretch" spacing={3}>
                     {movies.map((movie) => (
