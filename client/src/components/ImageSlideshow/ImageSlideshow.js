@@ -53,7 +53,7 @@ const ImageSlideshow = () => {
                 {CinemaSlides.map((slide, index) => {
                     return (
                         <div className={classes.cinemaPhoto} key={index}>
-                            <img className={classes.cinemaPhoto} src={slide.image} alt="cinema-photo" /> )
+                            <img className={classes.cinemaPhoto} src={slide.image} alt="cinema" /> )
                         </div>
                     )
                 })}

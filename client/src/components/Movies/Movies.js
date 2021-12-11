@@ -1,7 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Grid, CircularProgress } from "@material-ui/core";
 
+import { Container, Grid, CircularProgress } from "@material-ui/core";
+
+import HomeButtons from "../HomeButtons/HomeButtons";
 import Movie from "./Movie/Movie";
 import useStyles from "./moviesStyles";
 
@@ -13,22 +15,30 @@ import useStyles from "./moviesStyles";
  * @constructor
  */
 const Movies = ({ setCurrentId }) => {
-    const { movies, isLoading } = useSelector((state) => state.movies);
     const classes = useStyles();
+    const { movies, isLoading } = useSelector((state) => state.movies);
 
     // checks if there are any movies to be displayed, returns string to client side if not.
-    if(!movies.length && !isLoading) return "No movies";
+    if(!movies.length && !isLoading) {
+        return (
+            <Container className={classes.mainContainer}>No sessions available</Container>
+        );
+    }
 
     return (
-        isLoading ? <CircularProgress className={classes.circularProgress} /> : (
-            <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
-                {movies.map((movie) => (
-                    <Grid key={movie._id} item xs={12} sm={6} md={4} lg={3}>
-                        <Movie movie={movie} setCurrentId={setCurrentId} />
-                    </Grid>
-                ))}
-            </Grid>
-        )
+        <Container className={classes.mainContainer}>
+            <HomeButtons />
+            {isLoading ? <CircularProgress className={classes.circularProgress}/> : (
+                <Grid className={classes.moviesContainer} container alignItems="stretch" spacing={3}>
+                    {movies.map((movie) => (
+                        <Grid key={movie._id} item xs={6} sm={6} md={4} lg={3} style={{padding: "8px"}}>
+                            <Movie movie={movie} setCurrentId={setCurrentId}/>
+                        </Grid>
+                    ))}
+                </Grid>
+            )
+            }
+        </Container>
     );
 }
 

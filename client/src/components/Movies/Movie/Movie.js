@@ -1,5 +1,8 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+
+import { Card, CardMedia, Typography, Container, Button } from "@material-ui/core";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import useStyles from "./movieStyles";
 
@@ -15,12 +18,22 @@ const Movie = ({ movie, setCurrentId }) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.card}>
-            <CardMedia className={classes.media} image={movie.poster} />
-            <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">{movie.description}</Typography>
-            </CardContent>
-        </Card>
+        <Container className={classes.container}>
+            <Card className={classes.card} raised={true}>
+                <CardMedia className={classes.media} image={movie.poster} />
+                <div className={classes.heart}>
+                    <Button style={{color: "white"}} disableRipple>
+                        <FavoriteBorderIcon fontSize="medium"/>
+                    </Button>
+                </div>
+            </Card>
+            <div className={classes.description}>
+                <Typography variant="h5" style={{ paddingBottom: "10px" }}>{movie.title}</Typography>
+                <Typography variant="body1" color="textSecondary" style={{ fontSize: "12px" }}>
+                    {movie.genres.join(" | ")} | Age census: {movie.census} | {movie.runningTime} min.
+                </Typography>
+            </div>
+        </Container>
     );
 };
 

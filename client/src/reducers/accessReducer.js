@@ -1,6 +1,6 @@
 import { ACCESS, LOGOUT } from "../constants/actionTypes";
 
-export default (state = { accessData: null }, action) => {
+const accessReducer = (state = { accessData: null }, action) => {
     switch (action.type) {
         case ACCESS:
             localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
@@ -12,3 +12,5 @@ export default (state = { accessData: null }, action) => {
             return state;
     }
 };
+
+export default accessReducer;

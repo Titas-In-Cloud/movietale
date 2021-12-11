@@ -58,7 +58,7 @@ const Navbar = () => {
                 <div className={classes.toolbarBox}>
                     <Button className={classes.toolbarButton} component={Link} to="/">Movies</Button>
                     {!isAdmin && (
-                        <Button className={classes.toolbarButton} component={Link} to="./coming-soon">Coming Soon</Button>
+                        <Button className={classes.toolbarButton} component={Link} to="./repertoire">Repertoire</Button>
                     )}
                     {user && !isAdmin && (
                         <Button className={classes.toolbarButton} component={Link} to="./watchlist">Watchlist</Button>
