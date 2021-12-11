@@ -1,6 +1,7 @@
 import express from "express";
 
-import { getMoviesBySearch, getMovie, getMovies, createMovie, updateMovie, deleteMovie } from "../controllers/moviesController.js";
+import { getMoviesBySearch, getMovie, getMovies, createMovie, updateMovie, deleteMovie, favouriteMovie } from "../controllers/moviesController.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -11,5 +12,6 @@ router.get("/", getMovies);
 router.post("/", createMovie);
 router.patch("/:id", updateMovie);
 router.delete("/:id", deleteMovie);
+router.patch("/:id/favouriteMovie", auth, favouriteMovie);
 
 export default router;

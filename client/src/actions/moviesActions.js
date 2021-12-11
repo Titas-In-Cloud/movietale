@@ -5,7 +5,7 @@ import * as api from "../api/index";
 /**
  * Gets all the movies by the search query from the database and dispatches found movies to the Redux store.
  *
- * @param searchQuery query which was passed through the search bar by the user.
+ * @param   searchQuery query which was passed through the search bar by the user.
  * @returns {(function(*): Promise<void>)|*} dispatches found movies or returns an error.
  */
 export const getMoviesBySearch = (searchQuery) => async (dispatch) => {
@@ -23,7 +23,7 @@ export const getMoviesBySearch = (searchQuery) => async (dispatch) => {
 /**
  * Gets a movie by an id from the database and dispatches the result to the Redux store.
  *
- * @param id movie identifier.
+ * @param   id movie identifier.
  * @returns {(function(*): Promise<void>)|*} dispatches movie by an id or returns an error.
  */
 export const getMovie = (id) => async (dispatch) => {
@@ -59,8 +59,8 @@ export const getMovies = () => async (dispatch) => {
 /**
  * Dispatches newly created movie data to the Redux store and sends user to the main page of the website.
  *
- * @param movie data about the movie, structure of MovieModel.
- * @param navigate useNavigate object which has information on sites that the user been to.
+ * @param   movie data about the movie, structure of MovieModel.
+ * @param   navigate useNavigate object which has information on sites that the user been to.
  * @returns {(function(*): Promise<void>)|*} dispatches newly created movie data or returns an error.
  */
 export const createMovie = (movie, navigate) => async (dispatch) => {
@@ -79,8 +79,8 @@ export const createMovie = (movie, navigate) => async (dispatch) => {
 /**
  * Dispatches updated movie data to the Redux store.
  *
- * @param id movie identifier.
- * @param movie data about the movie, structure of MovieModel.
+ * @param   id movie identifier.
+ * @param   movie data about the movie, structure of MovieModel.
  * @returns {(function(*): Promise<void>)|*} dispatches updated movie data or returns an error.
  */
 export const updateMovie = (id, movie) => async (dispatch) => {
@@ -96,7 +96,7 @@ export const updateMovie = (id, movie) => async (dispatch) => {
 /**
  * Dispatches deleted movie information to the Redux store.
  *
- * @param id movie identifier.
+ * @param   id movie identifier.
  * @returns {(function(*): Promise<void>)|*} dispatches deleted movie information or returns an error.
  */
 export const deleteMovie = (id) => async (dispatch) => {
@@ -109,3 +109,18 @@ export const deleteMovie = (id) => async (dispatch) => {
     }
 };
 
+/**
+ * Dispatches liked movie information to the Redux store.
+ *
+ * @param   id movie identifier.
+ * @returns {(function(*): Promise<void>)|*} dispatches liked movie information or returns an error.
+ */
+export const favouriteMovie = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.favouriteMovie(id);
+
+        dispatch({ type: UPDATE, payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+};

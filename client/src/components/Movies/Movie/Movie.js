@@ -9,7 +9,7 @@ import DeleteIcon from "@material-ui/icons/Delete"
 
 import useStyles from "./movieStyles";
 
-import { deleteMovie } from "../../../actions/moviesActions";
+import { deleteMovie, favouriteMovie } from "../../../actions/moviesActions";
 
 /**
  * Exports movie poster element.
@@ -21,8 +21,10 @@ import { deleteMovie } from "../../../actions/moviesActions";
  */
 const Movie = ({ movie, setCurrentId }) => {
     const classes = useStyles();
-    const user = JSON.parse(localStorage.getItem("profile"));
     const dispatch = useDispatch()
+    const user = JSON.parse(localStorage.getItem("profile"));
+
+    const isFavourite = movie.favourites.find((favourite) => favourite === user?.result?._id);
 
     return (
         <Container className={classes.container}>
@@ -30,8 +32,12 @@ const Movie = ({ movie, setCurrentId }) => {
                 <CardMedia className={classes.media} image={movie.poster} />
                 { user?.result?.role === "client" &&
                     <div className={classes.heart}>
-                        <Button style={{color: "white"}}>
-                          <FavoriteBorderIcon fontSize="medium"/>
+                        <Button style={isFavourite ? { color: "#ff4033"} : {color: "white"}} disableRipple
+                                onClick={() => dispatch(favouriteMovie(movie._id))}>
+                            { isFavourite
+                                ? <FavoriteIcon fontSize="medium" color={"#ff4033"}/>
+                                : <FavoriteBorderIcon fontSize="medium"/>
+                            }
                         </Button>
                     </div>
                 }
@@ -46,6 +52,7 @@ const Movie = ({ movie, setCurrentId }) => {
                     <div className={classes.edit}>
                         <Button style={{color: "white"}} onClick={(e) => {
                             e.stopPropagation();
+                            window.scrollTo(0, 60);
                             setCurrentId(movie._id)}}>
                             <MoreHorizIcon fontSize="large"/>
                         </Button>

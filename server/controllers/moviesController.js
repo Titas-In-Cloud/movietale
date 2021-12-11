@@ -97,7 +97,7 @@ export const updateMovie = async (req, res) => {
     const{ _id: _id } = req.body;
     const movie = req.body;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No movie with that id");
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No movie with that id: ${id}`);
 
     const updatedMovie = await MovieModel.findByIdAndUpdate(_id, { ...movie, _id }, { new: true });
 
@@ -114,9 +114,40 @@ export const updateMovie = async (req, res) => {
 export const deleteMovie = async (req, res) => {
     const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No movie with that id");
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No movie with that id: ${id}`);
 
     await MovieModel.findByIdAndRemove(id);
 
     res.json({ message: "Movie deleted successfully" });
+}
+
+/**
+ * Updates movie favourites array to either add or remove current user's id.
+ *
+ * @param   req HTTP request body.
+ * @param   res HTTP response body.
+ * @returns {Promise<*>} updated movie object.
+ */
+export const favouriteMovie = async (req, res) => {
+    const { id } = req.params;
+
+    if(!req.userId) return res.json({ message: "Unauthenticated" });
+
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No movie with that id: ${id}`);
+
+    const movie = await MovieModel.findById(id);
+
+    const index = movie.favourites.findIndex((id) => id === String(req.userId));
+
+    // checks if the user has liked the movie. If he hasn't, updates the favourites array to include current user id,
+    // otherwise removes user's id from the favourites array.
+    if(index === -1) {
+        movie.favourites.push(req.userId);
+    } else {
+        movie.favourites = movie.favourites.filter((id) => id !== String(req.userId));
+    }
+
+    const updatedMovie = await MovieModel.findByIdAndUpdate(id, movie, { new: true });
+
+    res.json(updatedMovie);
 }

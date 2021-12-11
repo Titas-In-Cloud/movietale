@@ -8,7 +8,7 @@ import MovieForm from "../MovieForm/MovieForm";
 import Movies from "../Movies/Movies"
 
 /**
- * Exports website's main home page element.
+ * Exports website's repertoire page element.
  *
  * @returns {JSX.Element} main home page element.
  * @constructor
