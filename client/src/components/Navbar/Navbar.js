@@ -60,7 +60,7 @@ const Navbar = () => {
                     {!isAdmin ? (
                         <Button className={classes.toolbarButton} component={Link} to="./repertoire">Repertoire</Button>
                     ) :
-                        <Button className={classes.toolbarButton} component={Link} to="./repertoire">Create New Poster</Button>
+                        <Button className={classes.toolbarButton} component={Link} to="./repertoire">Create/Edit Movie</Button>
                     }
                     {user && !isAdmin && (
                         <Button className={classes.toolbarButton} component={Link} to="./watchlist">Watchlist</Button>

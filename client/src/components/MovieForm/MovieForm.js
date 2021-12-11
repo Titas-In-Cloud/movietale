@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
 
-import { TextField, Button, Typography, Paper } from "@material-ui/core";
+import { Container, TextField, Button, Typography, Paper } from "@material-ui/core";
 
 import { createMovie, updateMovie } from "../../actions/moviesActions";
 import useStyles from "./movieFormStyles";
@@ -18,8 +18,8 @@ import useStyles from "./movieFormStyles";
  */
 const MovieForm = ({ currentId, setCurrentId }) => {
     const [movieData, setMovieData] = useState(
-        { title: "", description: "", releaseYear: "", director: "", census: "", genres: "", poster: "", showTimes: "" });
-    const movie = useSelector((state) => (currentId ? state.movie.movie.find((message) => message._id === currentId) : null));
+        { title: "", description: "", releaseYear: "", runningTime: "", director: "", census: "", genres: [], poster: "", showTimes: "", favourites: "" });
+    const movie = useSelector((state) => (currentId ? state.movies.movies.find((message) => message._id === currentId) : null));
     const classes = useStyles();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -45,30 +45,34 @@ const MovieForm = ({ currentId, setCurrentId }) => {
     // clears the data on the create/edit form.
     const clear = () => {
         setCurrentId(null);
-        setMovieData({ title: "", description: "", releaseYear: "", director: "", census: "", genres: "", poster: "", showTimes: "" });
+        setMovieData({ title: "", description: "", releaseYear: "", runningTime: "", director: "", census: "", genres: [], poster: "", showTimes: "", favourites: "" });
     }
 
     return (
-        <Paper className={classes.paper} elevation={6}>
-            <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant="h6">{ currentId ? "Edit Current Movie Poster" : "Create New Movie Poster" }</Typography>
-                <TextField name="title" variant="outlined" label="Title" fullWidth
-                           value={movieData.title} onChange={(e) => setMovieData({ ...movieData, title: e.target.value })}/>
-                <TextField name="description" variant="outlined" label="Description" fullWidth multiline rows={4}
-                           value={movieData.description} onChange={(e) => setMovieData({ ...movieData, description: e.target.value })}/>
-                <TextField name="releaseYear" variant="outlined" label="Release Year" fullWidth
-                           value={movieData.releaseYear} onChange={(e) => setMovieData({ ...movieData, releaseYear: e.target.value })}/>
-                <TextField name="director" variant="outlined" label="Director" fullWidth
-                           value={movieData.director} onChange={(e) => setMovieData({ ...movieData, director: e.target.value })}/>
-                <TextField name="census" variant="outlined" label="Census" fullWidth
-                           value={movieData.census} onChange={(e) => setMovieData({ ...movieData, census: e.target.value })}/>
-                <TextField name="genres" variant="outlined" label="Genres" fullWidth
-                           value={movieData.genres} onChange={(e) => setMovieData({ ...movieData, genres: e.target.value })}/>
-                <div className={classes.fileInput}><FileBase type="poster" multiple={false} onDone={({ base64 }) => setMovieData({ ...movieData, poster: base64 })} /></div>
-                <Button className={classes.createButton} variant="contained" color="secondary" size="large" type="submit" fullWidth>Create</Button>
-                <Button variant="contained" color="primary" size="small" onClick={clear} fullWidth>Clear Form</Button>
-            </form>
-        </Paper>
+        <Container className={classes.mainContainer}>
+            <Paper className={classes.paper} elevation={6}>
+                <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+                    <Typography variant="h6">{ currentId ? "Edit Current Movie Poster" : "Create New Movie Poster" }</Typography>
+                    <TextField name="title" variant="outlined" label="Title" fullWidth
+                               value={movieData.title} onChange={(e) => setMovieData({ ...movieData, title: e.target.value })}/>
+                    <TextField name="description" variant="outlined" label="Description" fullWidth multiline rows={4}
+                               value={movieData.description} onChange={(e) => setMovieData({ ...movieData, description: e.target.value })}/>
+                    <TextField name="releaseYear" variant="outlined" label="Release Year" fullWidth
+                               value={movieData.releaseYear} onChange={(e) => setMovieData({ ...movieData, releaseYear: e.target.value })}/>
+                    <TextField name="runningTime" variant="outlined" label="Running Time" fullWidth
+                               value={movieData.runningTime} onChange={(e) => setMovieData({ ...movieData, runningTime: e.target.value })}/>
+                    <TextField name="director" variant="outlined" label="Director" fullWidth
+                               value={movieData.director} onChange={(e) => setMovieData({ ...movieData, director: e.target.value })}/>
+                    <TextField name="census" variant="outlined" label="Census" fullWidth
+                               value={movieData.census} onChange={(e) => setMovieData({ ...movieData, census: e.target.value })}/>
+                    <TextField name="genres" variant="outlined" label="Genres" fullWidth
+                               value={movieData.genres} onChange={(e) => setMovieData({ ...movieData, genres: e.target.value.split(",") })}/>
+                    <div className={classes.fileInput}><FileBase type="poster" multiple={false} onDone={({ base64 }) => setMovieData({ ...movieData, poster: base64 })} /></div>
+                    <Button className={classes.createButton} variant="contained" color="secondary" size="large" type="submit" fullWidth>{currentId ? "Submit" : "Create"}</Button>
+                    <Button variant="contained" color="primary" size="small" onClick={clear} fullWidth>Clear Form</Button>
+                </form>
+            </Paper>
+        </Container>
     );
 }
 

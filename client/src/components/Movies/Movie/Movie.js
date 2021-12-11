@@ -1,10 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import { Card, CardMedia, Typography, Container, Button } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import DeleteIcon from "@material-ui/icons/Delete"
 
 import useStyles from "./movieStyles";
+
+import { deleteMovie } from "../../../actions/moviesActions";
 
 /**
  * Exports movie poster element.
@@ -16,20 +21,40 @@ import useStyles from "./movieStyles";
  */
 const Movie = ({ movie, setCurrentId }) => {
     const classes = useStyles();
+    const user = JSON.parse(localStorage.getItem("profile"));
+    const dispatch = useDispatch()
 
     return (
         <Container className={classes.container}>
             <Card className={classes.card} raised={true}>
                 <CardMedia className={classes.media} image={movie.poster} />
-                <div className={classes.heart}>
-                    <Button style={{color: "white"}} disableRipple>
-                        <FavoriteBorderIcon fontSize="medium"/>
+                { user?.result?.role === "client" &&
+                    <div className={classes.heart}>
+                        <Button style={{color: "white"}}>
+                          <FavoriteBorderIcon fontSize="medium"/>
+                        </Button>
+                    </div>
+                }
+                { user?.result?.role === "admin" &&
+                <div className={classes.delete}>
+                    <Button style={{color: "white"}} onClick={() => dispatch(deleteMovie(movie._id))}>
+                        <DeleteIcon fontSize="medium"/>
                     </Button>
                 </div>
+                }
+                { user?.result?.role === "admin" &&
+                    <div className={classes.edit}>
+                        <Button style={{color: "white"}} onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentId(movie._id)}}>
+                            <MoreHorizIcon fontSize="large"/>
+                        </Button>
+                    </div>
+                }
             </Card>
             <div className={classes.description}>
-                <Typography variant="h5" style={{ paddingBottom: "10px" }}>{movie.title}</Typography>
-                <Typography variant="body1" color="textSecondary" style={{ fontSize: "12px" }}>
+                <Typography variant="h6" style={{ paddingBottom: "10px" }}>{movie.title}</Typography>
+                <Typography variant="body1" color="textSecondary" style={{ fontSize: "12px", color: "#a7a7a7" }}>
                     {movie.genres.join(" | ")} | Age census: {movie.census} | {movie.runningTime} min.
                 </Typography>
             </div>

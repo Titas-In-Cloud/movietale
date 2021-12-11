@@ -1,4 +1,4 @@
-import { FETCH_BY_SEARCH, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE } from "../constants/actionTypes";
+import { FETCH_BY_SEARCH, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
 import { START_LOADING, END_LOADING } from "../constants/actionTypes";
 import * as api from "../api/index";
 
@@ -79,9 +79,9 @@ export const createMovie = (movie, navigate) => async (dispatch) => {
 /**
  * Dispatches updated movie data to the Redux store.
  *
- * @param id
- * @param movie
- * @returns {(function(*): Promise<void>)|*}
+ * @param id movie identifier.
+ * @param movie data about the movie, structure of MovieModel.
+ * @returns {(function(*): Promise<void>)|*} dispatches updated movie data or returns an error.
  */
 export const updateMovie = (id, movie) => async (dispatch) => {
     try {
@@ -92,3 +92,20 @@ export const updateMovie = (id, movie) => async (dispatch) => {
         console.log(error);
     }
 };
+
+/**
+ * Dispatches deleted movie information to the Redux store.
+ *
+ * @param id movie identifier.
+ * @returns {(function(*): Promise<void>)|*} dispatches deleted movie information or returns an error.
+ */
+export const deleteMovie = (id) => async (dispatch) => {
+    try {
+        await api.deleteMovie(id);
+
+        dispatch({ type: DELETE, payload: id });
+    } catch (error) {
+        console.log(error);
+    }
+};
+

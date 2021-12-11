@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     moviesContainer: {
         marginTop: theme.spacing(2),
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
     },
     circularProgress: {
         position: "relative",

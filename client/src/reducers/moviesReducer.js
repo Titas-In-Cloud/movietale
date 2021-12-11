@@ -1,4 +1,4 @@
-import { FETCH_BY_SEARCH, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE } from "../constants/actionTypes";
+import { FETCH_BY_SEARCH, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
 import { START_LOADING, END_LOADING } from "../constants/actionTypes";
 
 const moviesReducer = (state = { isLoading: true, movies: [] }, action) => {
@@ -17,6 +17,8 @@ const moviesReducer = (state = { isLoading: true, movies: [] }, action) => {
             return { ...state, movies: [...state.movies, action.payload] };
         case UPDATE:
             return { ...state, movies: state.movies.map((movie) => (movie._id === action.payload._id ? action.payload : movie)) };
+        case DELETE:
+            return { ...state, movies: state.movies.filter((movie) => movie._id !== action.payload) };
         default:
             return state;
     }

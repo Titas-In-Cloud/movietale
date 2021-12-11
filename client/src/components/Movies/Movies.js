@@ -29,7 +29,7 @@ const Movies = ({ setCurrentId }) => {
             {isLoading ? <CircularProgress className={classes.circularProgress}/> : (
                 <Grid className={classes.moviesContainer} container alignItems="stretch" spacing={3}>
                     {movies.map((movie) => (
-                        <Grid key={movie._id} item xs={6} sm={6} md={4} lg={3} style={{padding: "8px"}}>
+                        <Grid key={movie._id} item xs={6} sm={6} md={4} lg={3} style={{ padding: "8px" }}>
                             <Movie movie={movie} setCurrentId={setCurrentId}/>
                         </Grid>
                     ))}

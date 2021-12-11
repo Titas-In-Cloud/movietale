@@ -23,8 +23,20 @@ export default makeStyles((theme) => ({
         right: "5px",
         color: "white",
     },
+    delete: {
+        position: "absolute",
+        top: "20px",
+        right: "5px",
+        color: "white",
+    },
+    edit: {
+        position: "absolute",
+        top: "15px",
+        left: "5px",
+        color: "white",
+    },
     description: {
-        padding: theme.spacing(3, 3, 5),
+        padding: theme.spacing(4, 2, 4),
         [theme.breakpoints.only("xs")] : {
             padding: theme.spacing(1, 1, 3),
         },
