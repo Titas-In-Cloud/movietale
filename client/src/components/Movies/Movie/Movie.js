@@ -42,7 +42,7 @@ const Movie = ({ movie, setCurrentId }) => {
                 <CardMedia className={classes.media} image={movie.poster} />
                 { user?.result?.role === "client" &&
                     <div className={classes.heart}>
-                        <Button style={isFavourite ? { color: "#ff352a"} : {color: "white"}} disableRipple
+                        <Button style={isFavourite ? { color: "#ff352a"} : { color: "white" }} disableRipple
                                 onClick={() => dispatch(favouriteMovie(movie._id))}>
                             { isFavourite
                                 ? <FavoriteIcon fontSize="medium" style={{ color: "#ff352a" }}/>
@@ -53,7 +53,7 @@ const Movie = ({ movie, setCurrentId }) => {
                 }
                 { user?.result?.role === "admin" &&
                 <div className={classes.delete}>
-                    <Button style={{color: "white"}} onClick={handleClickOpen}>
+                    <Button style={{ color: "#f44336" }} onClick={handleClickOpen}>
                         <DeleteIcon fontSize="medium"/>
                     </Button>
                     <Dialog
@@ -73,11 +73,13 @@ const Movie = ({ movie, setCurrentId }) => {
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button autoFocus onClick={() => {
-                                handleClose();
-                                dispatch(deleteMovie(movie._id));
-                            }}>
+                            <Button style={{ backgroundColor: "#9e9e9e", color: "#2f2f2f" }}
+                                    onClick={handleClose}>Cancel</Button>
+                            <Button autoFocus style={{ backgroundColor: "#ff352a", color: "#ffffff" }}
+                                    onClick={() => {
+                                        handleClose();
+                                        dispatch(deleteMovie(movie._id));
+                                    }}>
                                 Delete
                             </Button>
                         </DialogActions>
