@@ -11,6 +11,7 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchMoviesBySearch = (searchQuery) => API.get(`/movies/search?searchQuery=${searchQuery.search}`);
+export const fetchFavouriteMovies = () => API.get("/movies/favourites");
 export const fetchMovie = (id) => API.get(`/movies/${id}`);
 export const fetchMovies = () => API.get("/movies");
 

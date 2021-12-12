@@ -14,9 +14,35 @@ export const getMoviesBySearch = async (req, res) => {
     try {
         const title = new RegExp(searchQuery, "i");
 
-        const movies = await MovieModel.find({ $or: [ { title } ]});
+        const movies = await MovieModel.find({ title });
 
         res.json({ data: movies });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+/**
+ * Returns all favourite movies of the user by his id.
+ *
+ * @param   req HTTP request body.
+ * @param   res HTTP response body.
+ * @returns {Promise<void>} favourite movies by the user id.
+ */
+export const getFavouriteMovies = async (req, res) => {
+    const favouriteMovies = [];
+
+    try {
+        const movies = await MovieModel.find();
+
+        movies.map((movie) => {
+            movie.favourites.map((favouriteMovie) => {
+                if(favouriteMovie === req.userId) {
+                    favouriteMovies.push(movie);
+                }
+            })
+        })
+
+        res.json({ data: favouriteMovies });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

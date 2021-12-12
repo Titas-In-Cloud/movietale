@@ -1,4 +1,4 @@
-import { FETCH_BY_SEARCH, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE, DELETE, RESET_ERROR } from "../constants/actionTypes";
+import { FETCH_BY_SEARCH, FETCH_FAVOURITES, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE, DELETE, RESET_ERROR } from "../constants/actionTypes";
 import { START_LOADING, END_LOADING } from "../constants/actionTypes";
 import * as api from "../api/index";
 
@@ -16,6 +16,23 @@ export const getMoviesBySearch = (searchQuery) => async (dispatch) => {
         dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
         dispatch({ type: END_LOADING });
     } catch (error) {
+        console.log(error);
+    }
+};
+
+/**
+ * Gets all favourite movies by user id from the database and dispatches found movies to the Redux store.
+ *
+ * @returns {(function(*): Promise<void>)|*} dispatches found favourite movies or returns an error.
+ */
+export const getFavouriteMovies = () => async (dispatch) => {
+    try {
+        dispatch({ type: START_LOADING });
+        const { data: { data } } = await api.fetchFavouriteMovies();
+
+        dispatch({ type: FETCH_FAVOURITES, payload: { data } });
+        dispatch({ type: END_LOADING });
+    } catch(error) {
         console.log(error);
     }
 };

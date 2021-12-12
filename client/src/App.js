@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import Repertoire from "./components/Repertoire/Repertoire";
+import Favourites from "./components/Favourites/Favourites";
 import Search from "./components/Search/Search";
 import Access from "./components/Access/Access";
 
@@ -27,6 +28,7 @@ const App = () => {
                     <Route path="/" exact element={<Navigate replace to="/movies" />} />
                     <Route path="/movies" exact element={<Home/>} />
                     <Route path="/repertoire" exact element={<Repertoire/>} />
+                    <Route path="/favourites" exact element={<Favourites/>} />
                     <Route path="/search" exact element={<Search/>} />
                     <Route path="/access" exact element={(!user ? <Access/> : <Navigate replace to="/movies" />)} />
                 </Routes>

@@ -44,6 +44,7 @@ const Navbar = () => {
         if(search.trim()) {
             dispatch(getMoviesBySearch({ search }));
             navigate(`/search?searchQuery=${search || "none"}`);
+            setSearch("");
         }
     };
 
@@ -82,7 +83,7 @@ const Navbar = () => {
                         <Button className={classes.toolbarButton} component={Link} to="./repertoire">Create/Edit Movie</Button>
                     }
                     {user && !isAdmin && (
-                        <Button className={classes.toolbarButton} component={Link} to="./watchlist">Watchlist</Button>
+                        <Button className={classes.toolbarButton} component={Link} to="./favourites">Favourites</Button>
                     )}
                 </div>
                 {user ? (
