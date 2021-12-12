@@ -14,7 +14,11 @@ export const login = (formData, navigate) => async (dispatch) => {
 
         dispatch({ type: ACCESS, data });
 
-        navigate("/");
+        if(data.result.role === "client") {
+            navigate("/");
+        } else if(data.result.role === "admin") {
+            navigate("/repertoire");
+        }
     } catch (error) {
         console.log(error);
         dispatch({ type: ACCESS_ERROR, error });

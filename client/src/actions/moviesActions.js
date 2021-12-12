@@ -71,7 +71,8 @@ export const createMovie = (movie, navigate) => async (dispatch) => {
 
         dispatch({ type: CREATE, payload: data });
 
-        navigate("/movies", { replace: true });
+        navigate("/repertoire", { replace: true });
+        dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error);
     }

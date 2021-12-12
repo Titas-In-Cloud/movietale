@@ -10,7 +10,7 @@ import Movies from "../Movies/Movies"
 /**
  * Exports website's repertoire page element.
  *
- * @returns {JSX.Element} main home page element.
+ * @returns {JSX.Element} repertoire page element.
  * @constructor
  */
 const Repertoire = () => {

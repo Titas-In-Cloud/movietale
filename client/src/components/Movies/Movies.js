@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { Container, Grid, CircularProgress } from "@material-ui/core";
+import {Container, Grid, CircularProgress, Typography} from "@material-ui/core";
 
 import Movie from "./Movie/Movie";
 import useStyles from "./moviesStyles";
@@ -20,7 +20,11 @@ const Movies = ({ setCurrentId }) => {
     // checks if there are any movies to be displayed, returns string to client side if not.
     if(!movies.length && !isLoading) {
         return (
-            <Container className={classes.mainContainer}>No sessions available</Container>
+            <Container className={classes.noMoviesContainer}>
+                <Typography className={classes.noMoviesText}>
+                    No movies available
+                </Typography>
+            </Container>
         );
     }
 
@@ -34,8 +38,7 @@ const Movies = ({ setCurrentId }) => {
                         </Grid>
                     ))}
                 </Grid>
-            )
-            }
+            )}
         </Container>
     );
 }

@@ -6,6 +6,8 @@ import decode from "jwt-decode";
 import { AppBar, Toolbar, Button, IconButton, InputBase } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 
+import { getMoviesBySearch } from "../../actions/moviesActions";
+
 import logo from "../../images/movietale logo boutique.png";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./navbarStyles";
@@ -19,6 +21,7 @@ import useStyles from "./navbarStyles";
 const Navbar = () => {
     const classes = useStyles();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+    const [search, setSearch] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,6 +39,17 @@ const Navbar = () => {
         setUser(null);
     };
 
+    // searches for movies by the search query and navigates user to search page.
+    const searchPost = () => {
+        if(search.trim()) {
+            dispatch(getMoviesBySearch({ search }));
+            navigate(`/search?searchQuery=${search || "none"}`);
+        } else {
+            navigate("/");
+            console.log("I'm nothing");
+        }
+    };
+
     // checks the user's JSON Web Token and logs out user if it has expired.
     useEffect(() => {
         const token = user?.token;
@@ -51,12 +65,20 @@ const Navbar = () => {
 
     return(
         <AppBar className={classes.appBar} position="static">
-            <Link to="/">
-                <img className={classes.logo} src={logo} alt="movietale" />
-            </Link>
+            { !isAdmin ?
+                <Link to="/">
+                    <img className={classes.logo} src={logo} alt="movietale" />
+                </Link>
+                :
+                <Link to="./repertoire">
+                    <img className={classes.logo} src={logo} alt="movietale" />
+                </Link>
+            }
             <Toolbar className={classes.toolbar}>
                 <div className={classes.toolbarBox}>
-                    <Button className={classes.toolbarButton} component={Link} to="/">Movies</Button>
+                    {!isAdmin &&
+                        <Button className={classes.toolbarButton} component={Link} to="/">Movies</Button>
+                    }
                     {!isAdmin ? (
                         <Button className={classes.toolbarButton} component={Link} to="./repertoire">Repertoire</Button>
                     ) :
@@ -75,13 +97,17 @@ const Navbar = () => {
                         <Button className={classes.accessButton} component={Link} to="./access" variant="contained" color="primary">Login</Button>
                     </div>
                 )}
-                <div className={classes.searchBox}>
-                    <InputBase placeholder="Search..." classes={{ root: classes.root, input: classes.input}}/>
-                    <IconButton className={classes.searchButton}><SearchIcon fontSize="inherit" /></IconButton>
-                </div>
+                {!isAdmin &&
+                    <div className={classes.searchBox}>
+                        <InputBase value={search} placeholder="Search..." classes={{ root: classes.root, input: classes.input}}
+                                   onChange={(e) => setSearch(e.target.value)}
+                                   onKeyPress={(key) => key.charCode === 13 && searchPost()}/>
+                        <IconButton className={classes.searchButton} onClick={searchPost}><SearchIcon fontSize="inherit" /></IconButton>
+                    </div>
+                }
             </Toolbar>
         </AppBar>
     );
-};
+}
 
 export default Navbar;
