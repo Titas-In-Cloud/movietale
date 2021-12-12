@@ -44,9 +44,6 @@ const Navbar = () => {
         if(search.trim()) {
             dispatch(getMoviesBySearch({ search }));
             navigate(`/search?searchQuery=${search || "none"}`);
-        } else {
-            navigate("/");
-            console.log("I'm nothing");
         }
     };
 

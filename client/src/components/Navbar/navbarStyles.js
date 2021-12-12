@@ -62,7 +62,7 @@ export default makeStyles((theme) => ({
         transition: theme.transitions.create("width"),
         width: "8ch",
         "&:focus": {
-            width: "20ch",
+            width: "18ch",
         },
     },
     searchButton: {
