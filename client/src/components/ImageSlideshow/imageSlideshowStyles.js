@@ -33,8 +33,8 @@ export default makeStyles((theme) => ({
         height: "1.5vh",
         width: "1.5vh",
         borderRadius: "50%",
-
         cursor: "pointer",
+        opacity: "0.5",
         margin: theme.spacing(2, 3, "auto", "auto"),
     },
     slideshowDotActive: {
@@ -43,7 +43,6 @@ export default makeStyles((theme) => ({
         height: "1.5vh",
         width: "1.5vh",
         borderRadius: "50%",
-
         cursor: "pointer",
         margin: theme.spacing(2, 3, "auto", "auto"),
     },

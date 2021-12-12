@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
     buttonsContainer: {
         display: "flex",
         flexDirection: "row",
-        padding: theme.spacing(0, 3, 5),
+        padding: theme.spacing(1, 3, 6),
         marginTop: theme.spacing(2),
         overflow: "auto",
         [theme.breakpoints.only("xs")]: {
