@@ -12,7 +12,7 @@ const moviesReducer = (state = { isLoading: true, movies: [] }, action) => {
         case FETCH_MOVIE:
             return { ...state, movie: action.payload.movie };
         case FETCH_ALL:
-            return { ...state, movies: action.payload.data,};
+            return { ...state, movies: action.payload.data };
         case CREATE:
             return { ...state, movies: [...state.movies, action.payload] };
         case UPDATE:

@@ -1,4 +1,4 @@
-import { ACCESS } from "../constants/actionTypes";
+import {ACCESS, ACCESS_ERROR, RESET_ERROR} from "../constants/actionTypes";
 import * as api from "../api/index";
 
 /**
@@ -17,6 +17,7 @@ export const login = (formData, navigate) => async (dispatch) => {
         navigate("/");
     } catch (error) {
         console.log(error);
+        dispatch({ type: ACCESS_ERROR, error });
     }
 };
 
@@ -34,6 +35,20 @@ export const register = (formData, navigate) => async (dispatch) => {
         dispatch({ type: ACCESS, data });
 
         navigate("/");
+    } catch (error) {
+        console.log(error);
+        dispatch({ type: ACCESS_ERROR, error });
+    }
+};
+
+/**
+ * Resets the error state in Redux store.
+ *
+ * @returns {(function(*): Promise<void>)|*} dispatches reset command or returns an error.
+ */
+export const resetErrors = () => async (dispatch) => {
+    try {
+        dispatch({ type: RESET_ERROR });
     } catch (error) {
         console.log(error);
     }

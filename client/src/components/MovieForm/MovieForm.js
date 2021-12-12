@@ -52,7 +52,7 @@ const MovieForm = ({ currentId, setCurrentId }) => {
         <Container className={classes.mainContainer}>
             <Paper className={classes.paper} elevation={6}>
                 <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                    <Typography variant="h6">{ currentId ? "Edit Current Movie Poster" : "Create New Movie Poster" }</Typography>
+                    <Typography variant="h6">{ currentId ? "Edit Movie Poster" : "Create New Movie Poster" }</Typography>
                     <TextField name="title" variant="outlined" label="Title" fullWidth
                                value={movieData.title} onChange={(e) => setMovieData({ ...movieData, title: e.target.value })}/>
                     <TextField name="description" variant="outlined" label="Description" fullWidth multiline rows={4}

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Button, Paper, Grid, Typography, Container } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { register, login } from "../../actions/accessActions";
+import { Button, Paper, Grid, Typography, Container } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
+
+import {register, login, resetErrors} from "../../actions/accessActions";
 
 import Input from "./Input";
 import useStyles from "./accessStyles";
@@ -18,6 +20,7 @@ const initialState = { firstName: "", lastName: "", email: "", password: "", con
  */
 const Access = () => {
     const classes = useStyles();
+    const errorMessage = useSelector(state => state.access.error);
     const [showPassword, setShowPassword] = useState(false);
     const [isRegistration, setIsRegistration] = useState(false);
     const [formData, setFormData] = useState(initialState);
@@ -25,7 +28,7 @@ const Access = () => {
     const navigate = useNavigate();
 
     // either shows or doesn't show password on the login/registration forms.
-    const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)
+    const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
     // dispatches either registration or login details.
     const handleSubmit = (e) => {
@@ -47,10 +50,12 @@ const Access = () => {
     const switchMode = () => {
         setIsRegistration((prevIsRegistration) => !prevIsRegistration);
         showPassword && handleShowPassword(false);
+        dispatch(resetErrors());
     };
 
     return(
-        <Container className={ !isRegistration && classes.containerLogin } component="main" maxWidth="xs">
+        <Container className={ (!isRegistration && !errorMessage) ?  classes.containerLogin :
+            (!isRegistration ? classes.containerLoginError : classes.containerRegistration) } component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
                 <Typography variant="h5">{isRegistration ? "Register" : "Login"}</Typography>
                 <form className={classes.form} onSubmit={handleSubmit}>
@@ -64,6 +69,11 @@ const Access = () => {
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email"/>
                         <Input name="password" label="Password" handleChange={handleChange}
                                type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                        { (errorMessage && !isRegistration) && (
+                            <Alert className={classes.errorMessage} severity="error">
+                                Wrong credentials — please try again!
+                            </Alert>
+                        )}
                         { isRegistration && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
                     </Grid>
                     <Button className={classes.accessButton} type="submit" fullWidth variant="contained" color="primary">

@@ -4,6 +4,12 @@ export default makeStyles((theme) => ({
     containerLogin: {
         paddingBottom: theme.spacing(18),
     },
+    containerLoginError: {
+        paddingBottom: theme.spacing(11),
+    },
+    containerRegistration: {
+        paddingBottom: theme.spacing(0),
+    },
     paper: {
         marginTop: theme.spacing(9),
         display: "flex",
@@ -15,6 +21,11 @@ export default makeStyles((theme) => ({
     form: {
         width: "100%", // Fix IE 11 issue.
         marginTop: theme.spacing(3),
+    },
+    errorMessage: {
+        width: "100%",
+        margin: theme.spacing(1, 3, 0, 3),
+        textAlign: "center",
     },
     accessButton: {
         backgroundColor: "#000000",

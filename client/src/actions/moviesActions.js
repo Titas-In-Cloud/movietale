@@ -1,4 +1,4 @@
-import { FETCH_BY_SEARCH, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
+import { FETCH_BY_SEARCH, FETCH_MOVIE, FETCH_ALL, CREATE, UPDATE, DELETE, RESET_ERROR } from "../constants/actionTypes";
 import { START_LOADING, END_LOADING } from "../constants/actionTypes";
 import * as api from "../api/index";
 
@@ -46,6 +46,7 @@ export const getMovie = (id) => async (dispatch) => {
  */
 export const getMovies = () => async (dispatch) => {
     try {
+        dispatch({ type: RESET_ERROR });
         dispatch({ type: START_LOADING });
         const { data } = await api.fetchMovies();
 
