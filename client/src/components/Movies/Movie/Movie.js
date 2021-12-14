@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import {Card, CardMedia, Typography, Container, Button,
     Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
@@ -22,7 +23,8 @@ import { deleteMovie, favouriteMovie } from "../../../actions/moviesActions";
  */
 const Movie = ({ movie, setCurrentId }) => {
     const classes = useStyles();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const location = useLocation();
     const [open, setOpen] = React.useState(false);
     const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -40,7 +42,7 @@ const Movie = ({ movie, setCurrentId }) => {
         <Container className={classes.container}>
             <Card className={classes.card} raised={true}>
                 <CardMedia className={classes.media} image={movie.poster} />
-                { user?.result?.role === "client" &&
+                { (user?.result?.role === "client" && (location.pathname === "/repertoire" || location.pathname === "/favourites")) &&
                     <div className={classes.heart}>
                         <Button style={isFavourite ? { color: "#ff352a"} : { color: "white" }} disableRipple
                                 onClick={() => dispatch(favouriteMovie(movie._id))}>
@@ -51,49 +53,49 @@ const Movie = ({ movie, setCurrentId }) => {
                         </Button>
                     </div>
                 }
-                { user?.result?.role === "admin" &&
-                <div className={classes.delete}>
-                    <Button style={{ color: "#f44336" }} onClick={handleClickOpen}>
-                        <DeleteIcon fontSize="medium"/>
-                    </Button>
-                    <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">
-                            {"Delete Confirmation"}
-                        </DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-description" style={{ display: "flex", flexDirection: "row" }}>
-                                <span>Are you sure you want to delete&nbsp;</span>
-                                <span style={{ color: "#000000" }}>{movie.title}</span>
-                                <span>&nbsp;poster?</span>
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button style={{ backgroundColor: "#9e9e9e", color: "#2f2f2f" }}
-                                    onClick={handleClose}>Cancel</Button>
-                            <Button autoFocus style={{ backgroundColor: "#ff352a", color: "#ffffff" }}
-                                    onClick={() => {
-                                        handleClose();
-                                        dispatch(deleteMovie(movie._id));
-                                    }}>
-                                Delete
+                { (user?.result?.role === "admin" && location.pathname === "/repertoire") &&
+                    <div>
+                        <div className={classes.delete}>
+                            <Button style={{ color: "#f44336" }} onClick={handleClickOpen}>
+                                <DeleteIcon fontSize="medium"/>
                             </Button>
-                        </DialogActions>
-                    </Dialog>
-                </div>
-                }
-                { user?.result?.role === "admin" &&
-                    <div className={classes.edit}>
-                        <Button style={{color: "white"}} onClick={(e) => {
-                            e.stopPropagation();
-                            window.scrollTo({ top: 50, behavior: "smooth" });
-                            setCurrentId(movie._id)}}>
-                            <MoreHorizIcon fontSize="large"/>
-                        </Button>
+                            <Dialog
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                    {"Delete Confirmation"}
+                                </DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-description" style={{ display: "flex", flexDirection: "row" }}>
+                                        <span>Are you sure you want to delete&nbsp;</span>
+                                        <span style={{ color: "#000000" }}>{movie.title}</span>
+                                        <span>&nbsp;poster?</span>
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button style={{ backgroundColor: "#9e9e9e", color: "#2f2f2f" }}
+                                            onClick={handleClose}>Cancel</Button>
+                                    <Button autoFocus style={{ backgroundColor: "#ff352a", color: "#ffffff" }}
+                                            onClick={() => {
+                                                handleClose();
+                                                dispatch(deleteMovie(movie._id));
+                                            }}>
+                                        Delete
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                        </div>
+                        <div className={classes.edit}>
+                            <Button style={{color: "white"}} onClick={(e) => {
+                                e.stopPropagation();
+                                window.scrollTo({ top: 50, behavior: "smooth" });
+                                setCurrentId(movie._id)}}>
+                                <MoreHorizIcon fontSize="large"/>
+                            </Button>
+                        </div>
                     </div>
                 }
             </Card>
