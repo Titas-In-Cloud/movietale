@@ -14,10 +14,13 @@ import useStyles from "./movieStyles";
 import { deleteMovie, favouriteMovie } from "../../../actions/moviesActions";
 
 /**
- * Exports movie poster element.
+ * Exports movie poster element. Movie poster on client side has a photo, title, genres, running time and census,
+ * also a button to like the movie and put them to your favourites list when logged in and while on /repertoire,
+ * /favourites or /search pages. On admin page the movie poster has the same description but it has buttons
+ * to edit or delete movie poster, instead of liking the movie.
  *
- * @param movie data about the movie.
- * @param setCurrentId Redux store state element.
+ * @param   movie data about the movie.
+ * @param   setCurrentId Redux store state element.
  * @returns {JSX.Element} movie poster element.
  * @constructor
  */
@@ -28,12 +31,15 @@ const Movie = ({ movie, setCurrentId }) => {
     const [open, setOpen] = React.useState(false);
     const user = JSON.parse(localStorage.getItem("profile"));
 
+    // checks if the movie is liked by the user
     const isFavourite = movie.favourites.find((favourite) => favourite === user?.result?._id);
 
+    // opens the movie delete popup window
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    // closes the movie delete popup window
     const handleClose = () => {
         setOpen(false);
     };
@@ -42,7 +48,7 @@ const Movie = ({ movie, setCurrentId }) => {
         <Container className={classes.container}>
             <Card className={classes.card} raised={true}>
                 <CardMedia className={classes.media} image={movie.poster} />
-                { (user?.result?.role === "client" && (location.pathname === "/repertoire" || location.pathname === "/favourites")) &&
+                { (user?.result?.role === "client" && (location.pathname === "/repertoire" || location.pathname === "/favourites" || location.pathname === "/search")) &&
                     <div className={classes.heart}>
                         <Button style={isFavourite ? { color: "#ff352a"} : { color: "white" }} disableRipple
                                 onClick={() => dispatch(favouriteMovie(movie._id))}>

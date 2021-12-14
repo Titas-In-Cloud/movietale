@@ -9,7 +9,7 @@ import useStyles from "./moviesStyles";
 /**
  * Exports all movie posters in a grid as an element.
  *
- * @param setCurrentId Redux store state element.
+ * @param   setCurrentId Redux store state element.
  * @returns {JSX.Element|string} grid of movie posters.
  * @constructor
  */

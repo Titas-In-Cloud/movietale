@@ -11,8 +11,8 @@ import useStyles from "./movieFormStyles";
 /**
  * Exports form element to create or edit movie posters.
  *
- * @param currentId Redux store state element.
- * @param setCurrentId Redux store state element.
+ * @param   currentId Redux store state element.
+ * @param   setCurrentId Redux store state element.
  * @returns {JSX.Element} form to create/edit movie posters.
  * @constructor
  */
