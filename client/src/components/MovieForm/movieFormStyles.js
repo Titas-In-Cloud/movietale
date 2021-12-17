@@ -17,6 +17,16 @@ export default makeStyles((theme) => ({
         flexWrap: "wrap",
         justifyContent: "center",
     },
+    showTimeContainer: {
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "row",
+        width: "100%",
+    },
+    showTimeButton: {
+        backgroundColor: "#000000",
+        marginTop: theme.spacing(1),
+    },
     fileInput: {
         width: "97%",
         margin: "10px 0",

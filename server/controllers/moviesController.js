@@ -93,7 +93,7 @@ export const getMovies = async (req, res) => {
  * @returns {Promise<void>} newly created movie object.
  */
 export const createMovie = async (req, res) => {
-    const { title, description, releaseYear, runningTime, director, census, genres, poster, showTimes} = req.body;
+    const { title, description, releaseYear, runningTime, director, census, genres, poster, showTimes } = req.body;
 
     try {
         const newMovie = await MovieModel.create({
@@ -102,8 +102,9 @@ export const createMovie = async (req, res) => {
             releaseYear: releaseYear,
             runningTime: runningTime,
             director: director,
-            census: census, genres:
-            genres, poster: poster,
+            census: census,
+            genres: genres,
+            poster: poster,
             showTimes: showTimes
         });
 

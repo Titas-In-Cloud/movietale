@@ -10,9 +10,9 @@ router.get("/favourites", auth, getFavouriteMovies);
 router.get("/:id", getMovie);
 router.get("/", getMovies);
 
-router.post("/", createMovie);
-router.patch("/:id", updateMovie);
-router.delete("/:id", deleteMovie);
+router.post("/", auth, createMovie);
+router.patch("/:id", auth, updateMovie);
+router.delete("/:id", auth, deleteMovie);
 router.patch("/:id/favouriteMovie", auth, favouriteMovie);
 
 export default router;

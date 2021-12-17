@@ -10,7 +10,7 @@ const movieSchema = mongoose.Schema({
     genres: [String],
     poster: String,
     showTimes: {
-        type: [Date],
+        type: [String],
         default: [],
     },
     favourites: {

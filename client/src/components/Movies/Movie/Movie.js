@@ -108,7 +108,7 @@ const Movie = ({ movie, setCurrentId }) => {
                         <div className={classes.edit}>
                             <Button style={{color: "white"}} onClick={(e) => {
                                 e.stopPropagation();
-                                window.scrollTo({ top: 50, behavior: "smooth" });
+                                window.scrollTo({ top: 130, behavior: "smooth" });
                                 setCurrentId(movie._id)}}>
                                 <MoreHorizIcon fontSize="large"/>
                             </Button>

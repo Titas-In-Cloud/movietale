@@ -18,7 +18,8 @@ import useStyles from "./movieFormStyles";
  */
 const MovieForm = ({ currentId, setCurrentId }) => {
     const [movieData, setMovieData] = useState(
-        { title: "", description: "", releaseYear: "", runningTime: "", director: "", census: "", genres: [], poster: "", showTimes: "", favourites: "" });
+        { title: "", description: "", releaseYear: "", runningTime: "", director: "", census: "", genres: [], poster: "", showTimes: [], favourites: "" });
+    const [date, setDate] = useState("2022-01-01T12:00");
     const movie = useSelector((state) => (currentId ? state.movies.movies.find((message) => message._id === currentId) : null));
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -29,11 +30,23 @@ const MovieForm = ({ currentId, setCurrentId }) => {
         if(movie) setMovieData(movie)
     }, [movie]);
 
+    // adds new show time date to the movie data. Either pushes new date onto existing dates or starts
+    // with an array with one initial date.
+    const addNewDate = () => {
+        console.log(movieData.showTimes)
+        if(movieData.showTimes.length !== 0 && movieData.showTimes[0] !== "" && movieData.showTimes[0] !== null){
+            setMovieData({ ...movieData, showTimes: [ ...movieData.showTimes, date ] });
+            console.log("first");
+        } else {
+            setMovieData({ ...movieData, showTimes: [ date ] });
+            console.log("first");
+        }
+    }
+
     // handles form submit, if the Redux store state has an id of a movie - updates the current movie poster,
     // otherwise creates a new one.
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if(currentId) {
             dispatch(updateMovie(currentId, { ...movieData }));
         } else {
@@ -45,7 +58,7 @@ const MovieForm = ({ currentId, setCurrentId }) => {
     // clears the data on the create/edit form.
     const clear = () => {
         setCurrentId(null);
-        setMovieData({ title: "", description: "", releaseYear: "", runningTime: "", director: "", census: "", genres: [], poster: "", showTimes: "", favourites: "" });
+        setMovieData({ title: "", description: "", releaseYear: "", runningTime: "", director: "", census: "", genres: [], poster: "", showTimes: [], favourites: "" });
     }
 
     return (
@@ -67,6 +80,13 @@ const MovieForm = ({ currentId, setCurrentId }) => {
                                value={movieData.census} onChange={(e) => setMovieData({ ...movieData, census: e.target.value })}/>
                     <TextField name="genres" variant="outlined" label="Genres" fullWidth
                                value={movieData.genres} onChange={(e) => setMovieData({ ...movieData, genres: e.target.value.split(",") })}/>
+                    <TextField name="showTimes" variant="outlined" label="Show Times" fullWidth multiline
+                               value={movieData.showTimes} onChange={(e) => setMovieData({ ...movieData, showTimes: e.target.value.split(",") })}/>
+                    <div className={classes.showTimeContainer}>
+                        <TextField id="datetime-local" label="Choose show time" type="datetime-local" fullWidth
+                            defaultValue="2022-01-01T12:00" onChange={(e) => setDate(e.target.value)}/>
+                        <Button className={classes.showTimeButton} variant="contained" color="secondary" onClick={addNewDate}>Add</Button>
+                    </div>
                     <div className={classes.fileInput}><FileBase type="poster" multiple={false} onDone={({ base64 }) => setMovieData({ ...movieData, poster: base64 })} /></div>
                     <Button className={classes.createButton} variant="contained" color="secondary" size="large" type="submit" fullWidth>{currentId ? "Submit" : "Create"}</Button>
                     <Button variant="contained" color="primary" size="small" onClick={clear} fullWidth>Clear Form</Button>
