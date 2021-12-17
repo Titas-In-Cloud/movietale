@@ -9,6 +9,7 @@ import Repertoire from "./components/Repertoire/Repertoire";
 import Favourites from "./components/Favourites/Favourites";
 import Search from "./components/Search/Search";
 import Access from "./components/Access/Access";
+import MovieDetails from "./components/Movies/Movie/MovieDetails/MovieDetails";
 
 /**
  * Has all elements of the website and returns it for display.
@@ -22,7 +23,7 @@ const App = () => {
 
     return (
         <BrowserRouter>
-            <Container maxWidth="lg">
+            <Container maxWidth="xl">
                 <Navbar />
                 <Routes>
                     <Route path="/" exact element={<Navigate replace to="/movies" />} />
@@ -30,6 +31,7 @@ const App = () => {
                     <Route path="/repertoire" exact element={<Repertoire/>} />
                     <Route path="/favourites" exact element={<Favourites/>} />
                     <Route path="/search" exact element={<Search/>} />
+                    <Route path="/movies/:id" exact element={<MovieDetails/>} />
                     <Route path="/access" exact element={(!user ? <Access/> : <Navigate replace to="/movies" />)} />
                 </Routes>
                 <Footer />

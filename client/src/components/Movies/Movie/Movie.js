@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import {Card, CardMedia, Typography, Container, Button,
+import {Card, CardMedia, Typography, Container, Button, ButtonBase,
     Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -27,6 +27,7 @@ import { deleteMovie, favouriteMovie } from "../../../actions/moviesActions";
 const Movie = ({ movie, setCurrentId }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const location = useLocation();
     const [open, setOpen] = React.useState(false);
     const user = JSON.parse(localStorage.getItem("profile"));
@@ -44,8 +45,11 @@ const Movie = ({ movie, setCurrentId }) => {
         setOpen(false);
     };
 
+    const openMovie = () => navigate(`/movies/${movie._id}`);
+
     return (
         <Container className={classes.container}>
+            <ButtonBase component="span" className={classes.cardAction} onClick={openMovie}>
             <Card className={classes.card} raised={true}>
                 <CardMedia className={classes.media} image={movie.poster} />
                 { (user?.result?.role === "client" && (location.pathname === "/repertoire" || location.pathname === "/favourites" || location.pathname === "/search")) &&
@@ -111,6 +115,7 @@ const Movie = ({ movie, setCurrentId }) => {
                     {movie.genres.join(" | ")} | Age census: {movie.census} | {movie.runningTime} min.
                 </Typography>
             </div>
+            </ButtonBase>
         </Container>
     );
 };

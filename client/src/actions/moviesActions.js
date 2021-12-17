@@ -47,7 +47,7 @@ export const getMovie = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
 
-        const { data } = await api.fetchMovies(id);
+        const { data } = await api.fetchMovie(id);
 
         dispatch({ type: FETCH_MOVIE, payload: { movie: data } });
         dispatch({ type: END_LOADING });
@@ -65,6 +65,7 @@ export const getMovies = () => async (dispatch) => {
     try {
         dispatch({ type: RESET_ERROR });
         dispatch({ type: START_LOADING });
+
         const { data } = await api.fetchMovies();
 
         dispatch({ type: FETCH_ALL, payload: { data } });
@@ -84,6 +85,7 @@ export const getMovies = () => async (dispatch) => {
 export const createMovie = (movie, navigate) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
+
         const { data } = await api.createMovie(movie);
 
         dispatch({ type: CREATE, payload: data });

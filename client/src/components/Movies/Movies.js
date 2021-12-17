@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
-import {Container, Grid, CircularProgress, Typography} from "@material-ui/core";
+import { Container, Grid, CircularProgress, Typography } from "@material-ui/core";
 
 import Movie from "./Movie/Movie";
 import useStyles from "./moviesStyles";
@@ -16,14 +17,27 @@ import useStyles from "./moviesStyles";
 const Movies = ({ setCurrentId }) => {
     const classes = useStyles();
     const { movies, isLoading } = useSelector((state) => state.movies);
+    const location = useLocation();
 
     // checks if there are any movies to be displayed, returns string to client side if not.
     if(!movies.length && !isLoading) {
         return (
             <Container className={classes.noMoviesContainer}>
-                <Typography className={classes.noMoviesText}>
-                    No movies available
-                </Typography>
+                { (location.pathname === "/repertoire" || location.pathname === "/search") &&
+                    <Typography className={classes.noMoviesText}>
+                        No movies available
+                    </Typography>
+                }
+                { location.pathname === "/movies" &&
+                    <Typography className={classes.noMoviesText}>
+                        No sessions available
+                    </Typography>
+                }
+                { location.pathname === "/favourites" &&
+                    <Typography className={classes.noMoviesText}>
+                        No favourite movies
+                    </Typography>
+                }
             </Container>
         );
     }

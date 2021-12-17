@@ -4,7 +4,6 @@ export default makeStyles((theme) => ({
     appBar: {
         margin: theme.spacing(3, 3, "auto", "auto"),
         padding: theme.spacing(1),
-        maxWidth: "inherit",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",

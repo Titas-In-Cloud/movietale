@@ -41,4 +41,8 @@ export default makeStyles((theme) => ({
             padding: theme.spacing(1, 1, 3),
         },
     },
+    cardAction: {
+        display: "block",
+        textAlign: "initial",
+    },
 }));

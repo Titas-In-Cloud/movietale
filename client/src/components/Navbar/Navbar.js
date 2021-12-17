@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 
-import { AppBar, Toolbar, Button, IconButton, InputBase } from "@material-ui/core";
+import { AppBar, Toolbar, Button, IconButton, InputBase, Container } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 
 import { getMoviesBySearch } from "../../actions/moviesActions";
@@ -58,53 +58,56 @@ const Navbar = () => {
 
         setUser(JSON.parse(localStorage.getItem("profile")));
 
+        // line to disable missing dependency warning
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location]);
 
     return(
-        <AppBar className={classes.appBar} position="static">
-            { !isAdmin ?
-                <Link to="/">
-                    <img className={classes.logo} src={logo} alt="movietale" />
-                </Link>
-                :
-                <Link to="./repertoire">
-                    <img className={classes.logo} src={logo} alt="movietale" />
-                </Link>
-            }
-            <Toolbar className={classes.toolbar}>
-                <div className={classes.toolbarBox}>
-                    {!isAdmin &&
+        <Container>
+            <AppBar className={classes.appBar} position="static">
+                { !isAdmin ?
+                    <Link to="/">
+                        <img className={classes.logo} src={logo} alt="movietale" />
+                    </Link>
+                    :
+                    <Link to="./repertoire">
+                        <img className={classes.logo} src={logo} alt="movietale" />
+                    </Link>
+                }
+                <Toolbar className={classes.toolbar}>
+                    <div className={classes.toolbarBox}>
+                        {!isAdmin &&
                         <Button className={classes.toolbarButton} component={Link} to="/">Movies</Button>
-                    }
-                    {!isAdmin ? (
-                        <Button className={classes.toolbarButton} component={Link} to="./repertoire">Repertoire</Button>
-                    ) :
-                        <Button className={classes.toolbarButton} component={Link} to="./repertoire">Create/Edit Movie</Button>
-                    }
-                    {user && !isAdmin && (
-                        <Button className={classes.toolbarButton} component={Link} to="./favourites">Favourites</Button>
+                        }
+                        {!isAdmin ? (
+                                <Button className={classes.toolbarButton} component={Link} to="./repertoire">Repertoire</Button>
+                            ) :
+                            <Button className={classes.toolbarButton} component={Link} to="./repertoire">Create/Edit Movie</Button>
+                        }
+                        {user && !isAdmin && (
+                            <Button className={classes.toolbarButton} component={Link} to="./favourites">Favourites</Button>
+                        )}
+                    </div>
+                    {user ? (
+                        <div>
+                            <Button className={classes.accessButton} variant="contained" color="primary" onClick={logout}>Logout</Button>
+                        </div>
+                    ) : (
+                        <div>
+                            <Button className={classes.accessButton} component={Link} to="./access" variant="contained" color="primary">Login</Button>
+                        </div>
                     )}
-                </div>
-                {user ? (
-                    <div>
-                        <Button className={classes.accessButton} variant="contained" color="primary" onClick={logout}>Logout</Button>
-                    </div>
-                ) : (
-                    <div>
-                        <Button className={classes.accessButton} component={Link} to="./access" variant="contained" color="primary">Login</Button>
-                    </div>
-                )}
-                {!isAdmin &&
+                    {!isAdmin &&
                     <div className={classes.searchBox}>
                         <InputBase value={search} placeholder="Search..." classes={{ root: classes.root, input: classes.input}}
                                    onChange={(e) => setSearch(e.target.value)}
                                    onKeyPress={(key) => key.charCode === 13 && searchPost()}/>
                         <IconButton className={classes.searchButton} onClick={searchPost}><SearchIcon fontSize="inherit" /></IconButton>
                     </div>
-                }
-            </Toolbar>
-        </AppBar>
+                    }
+                </Toolbar>
+            </AppBar>
+        </Container>
     );
 }
 
