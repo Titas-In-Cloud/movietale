@@ -33,13 +33,10 @@ const MovieForm = ({ currentId, setCurrentId }) => {
     // adds new show time date to the movie data. Either pushes new date onto existing dates or starts
     // with an array with one initial date.
     const addNewDate = () => {
-        console.log(movieData.showTimes)
         if(movieData.showTimes.length !== 0 && movieData.showTimes[0] !== "" && movieData.showTimes[0] !== null){
             setMovieData({ ...movieData, showTimes: [ ...movieData.showTimes, date ] });
-            console.log("first");
         } else {
             setMovieData({ ...movieData, showTimes: [ date ] });
-            console.log("first");
         }
     }
 
