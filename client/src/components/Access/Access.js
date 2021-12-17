@@ -53,6 +53,35 @@ const Access = () => {
         dispatch(resetErrors());
     };
 
+    // returns error box depending on the error that the client-side got from the backend.
+    const renderErrorBox = () => {
+        if (errorMessage && !isRegistration) {
+            return (
+                <Alert className={classes.errorMessage} severity="error">
+                    Wrong credentials — please try again!
+                </Alert>
+            )
+        } else if (errorMessage && (errorMessage.toString() === "Error: Request failed with status code 401" && isRegistration)) {
+            return (
+                <Alert className={classes.errorMessage} severity="warning">
+                    User with this email already exists!
+                </Alert>
+            )
+        } else if (errorMessage && (errorMessage.toString() === "Error: Request failed with status code 409" && isRegistration)) {
+            return (
+                <Alert className={classes.errorMessage} severity="warning">
+                    Passwords don't match!
+                </Alert>
+            )
+        } else if (errorMessage && (errorMessage.toString() === "Error: Request failed with status code 400" && isRegistration)) {
+            return (
+                <Alert className={classes.errorMessage} severity="warning">
+                    Password must be at least 6 characters!
+                </Alert>
+            )
+        }
+    };
+
     return(
         <Container className={ (!isRegistration && !errorMessage) ?  classes.containerLogin :
             (!isRegistration ? classes.containerLoginError : classes.containerRegistration) } component="main" maxWidth="xs">
@@ -69,12 +98,8 @@ const Access = () => {
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email"/>
                         <Input name="password" label="Password" handleChange={handleChange}
                                type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
-                        { (errorMessage && !isRegistration) && (
-                            <Alert className={classes.errorMessage} severity="error">
-                                Wrong credentials — please try again!
-                            </Alert>
-                        )}
                         { isRegistration && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
+                        { renderErrorBox() }
                     </Grid>
                     <Button className={classes.accessButton} type="submit" fullWidth variant="contained" color="primary">
                         { isRegistration ? "Register" : "Login" }

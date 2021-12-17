@@ -2,7 +2,7 @@ import MovieModel from "../models/movieModel.js";
 import mongoose from "mongoose";
 
 /**
- * Returns all movies from the database by search.
+ * Returns all movies from the database by search query. Movies could be found by either title or genre.
  *
  * @param   req HTTP request body.
  * @param   res HTTP response body.
@@ -12,9 +12,9 @@ export const getMoviesBySearch = async (req, res) => {
     const { searchQuery } = req.query;
 
     try {
-        const title = new RegExp(searchQuery, "i");
+        const query = new RegExp(searchQuery, "i");
 
-        const movies = await MovieModel.find({ title });
+        const movies = await MovieModel.find({$or: [{ title: query }, { genres: { $in: query }}]});
 
         res.json({ data: movies });
     } catch (error) {

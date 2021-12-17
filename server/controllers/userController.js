@@ -44,10 +44,12 @@ export const register = async (req, res) => {
     try {
         // checks if the user exists in the database.
         const existingUser = await UserModel.findOne({ email });
-        if(existingUser) return res.status(400).json({ message: "User already exists." });
+        if(existingUser) return res.status(401).json({ message: "User already exists." });
 
         // checks if the password and confirm password fields have the same information.
-        if(password !== confirmPassword) return res.status(400).json({ message: "Passwords don't match" });
+        if(password !== confirmPassword) return res.status(409).json({ message: "Passwords don't match" });
+
+        if(password.length < 6) return res.status(400).json({ message: "Password should be minimum 6 characters" })
 
         const hashedPassword = await bcrypt.hash(password, 12);
 

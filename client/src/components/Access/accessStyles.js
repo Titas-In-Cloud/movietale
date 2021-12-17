@@ -2,16 +2,16 @@ import { makeStyles} from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
     containerLogin: {
-        paddingBottom: theme.spacing(18),
+        paddingBottom: theme.spacing(20),
     },
     containerLoginError: {
-        paddingBottom: theme.spacing(11),
+        paddingBottom: theme.spacing(13),
     },
     containerRegistration: {
-        paddingBottom: theme.spacing(0),
+        paddingBottom: theme.spacing(2),
     },
     paper: {
-        marginTop: theme.spacing(9),
+        marginTop: theme.spacing(7),
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
     form: {
-        width: "100%", // Fix IE 11 issue.
+        width: "100%",
         marginTop: theme.spacing(3),
     },
     errorMessage: {
