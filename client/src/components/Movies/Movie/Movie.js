@@ -36,26 +36,32 @@ const Movie = ({ movie, setCurrentId }) => {
     const isFavourite = movie.favourites.find((favourite) => favourite === user?.result?._id);
 
     // opens the movie delete popup window
-    const handleClickOpen = () => {
+    const handleClickOpen = (e) => {
+        e.stopPropagation();
         setOpen(true);
     };
 
     // closes the movie delete popup window
-    const handleClose = () => {
+    const handleClose = (e) => {
+        e.stopPropagation();
         setOpen(false);
     };
 
+    // opens a movie page by id
     const openMovie = () => navigate(`/movies/${movie._id}`);
 
     return (
         <Container className={classes.container}>
-            <ButtonBase component="span" className={classes.cardAction} onClick={openMovie}>
+            <ButtonBase className={classes.cardAction} component="span" disableRipple onClick={openMovie}>
             <Card className={classes.card} raised={true}>
                 <CardMedia className={classes.media} image={movie.poster} />
                 { (user?.result?.role === "client" && (location.pathname === "/repertoire" || location.pathname === "/favourites" || location.pathname === "/search")) &&
                     <div className={classes.heart}>
                         <Button style={isFavourite ? { color: "#ff352a"} : { color: "white" }} disableRipple
-                                onClick={() => dispatch(favouriteMovie(movie._id))}>
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    dispatch(favouriteMovie(movie._id))}}
+                        >
                             { isFavourite
                                 ? <FavoriteIcon fontSize="medium" style={{ color: "#ff352a" }}/>
                                 : <FavoriteBorderIcon fontSize="medium"/>
@@ -89,8 +95,9 @@ const Movie = ({ movie, setCurrentId }) => {
                                     <Button style={{ backgroundColor: "#9e9e9e", color: "#2f2f2f" }}
                                             onClick={handleClose}>Cancel</Button>
                                     <Button autoFocus style={{ backgroundColor: "#ff352a", color: "#ffffff" }}
-                                            onClick={() => {
-                                                handleClose();
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setOpen(false);
                                                 dispatch(deleteMovie(movie._id));
                                             }}>
                                         Delete

@@ -30,7 +30,7 @@ const MovieDetails = () => {
     }, [id]);
 
     // checks if the movie with the current id exists, returns string to client side if not.
-    if(!movie) {
+    if(!movie && !isLoading) {
         return (
             <Container className={classes.noMovieContainer}>
                 <Typography className={classes.noMovieText}>
