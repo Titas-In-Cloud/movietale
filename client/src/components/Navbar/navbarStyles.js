@@ -1,21 +1,71 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
     appBar: {
-        margin: "20px 20px auto auto",
+        margin: theme.spacing(3, 3, "auto", "auto"),
+        padding: theme.spacing(1),
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
-        padding: "10px 10px 10px 10px",
+        justifyContent: "space-between",
         backgroundColor: "transparent",
+        alignItems: "center",
         boxShadow: "none",
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: "column",
+        },
     },
     logo: {
-        margin: "10px 10px 10px 5px",
+        margin: theme.spacing(1, 2.5),
         maxWidth: "200px",
     },
-    brandContainer: {
-        display: "inline-block",
-        boxSizing: "border-box",
+    toolbar: {
+        display: "flex",
+        justifyContent: "flex-end",
+        [theme.breakpoints.down("sm")]: {
+            flexDirection: "column",
+            paddingTop: theme.spacing(2),
+        },
+    },
+    toolbarBox: {
+        [theme.breakpoints.down("sm")]: {
+            flexDirection: "row",
+            textAlign: "center",
+        },
+        margin: theme.spacing(0, 2, 0, 2),
+    },
+    toolbarButton: {
+        color: "#000000",
+        margin: theme.spacing(1, 2, 1, 2),
+        borderRadius: "10px",
+        height: "40%",
+        fontWeight: "400",
+    },
+    accessButton: {
+        backgroundColor: "#000000",
+        margin: theme.spacing(1, 0, 1, 0),
+        borderRadius: "20px",
+        height: "7ch",
+        width: "12ch",
+        fontWeight: "400",
+    },
+    searchBox: {
+        margin: theme.spacing(1, 0, 1, 2),
+        backgroundColor: "#eeeeee",
+        borderRadius: "20px",
+        paddingLeft: theme.spacing(2),
+    },
+    root: {
+        color: "#000000",
+    },
+    input: {
+        transition: theme.transitions.create("width"),
+        width: "8ch",
+        "&:focus": {
+            width: "18ch",
+        },
+    },
+    searchButton: {
+        color: "#000000",
+        fontSize: "2rem",
     },
 }));

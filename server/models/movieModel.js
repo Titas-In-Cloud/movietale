@@ -3,13 +3,20 @@ import mongoose from "mongoose";
 const movieSchema = mongoose.Schema({
     title: String,
     description: String,
-    releaseYear: Number,
-    runningTime: Number,
+    releaseYear: String,
+    runningTime: String,
     director: String,
     census: String,
     genres: [String],
     poster: String,
-    showTimes: [Date],
+    showTimes: {
+        type: [String],
+        default: [],
+    },
+    favourites: {
+        type: [String],
+        default: [],
+    },
 });
 
 const MovieModel = mongoose.model("MovieModel", movieSchema);
