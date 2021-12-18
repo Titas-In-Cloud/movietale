@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
+import moment from "moment";
 
 import { Container, TextField, Button, Typography, Paper } from "@material-ui/core";
 
@@ -19,11 +20,15 @@ import useStyles from "./movieFormStyles";
 const MovieForm = ({ currentId, setCurrentId }) => {
     const [movieData, setMovieData] = useState(
         { title: "", description: "", releaseYear: "", runningTime: "", director: "", census: "", genres: [], poster: "", showTimes: [], favourites: "" });
-    const [date, setDate] = useState("2022-01-01T12:00");
+    const [date, setDate] = useState("01/01/2022T12:00");
     const movie = useSelector((state) => (currentId ? state.movies.movies.find((message) => message._id === currentId) : null));
     const classes = useStyles();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const newDate = new Date();
+    const stringDate = newDate.toLocaleDateString();
+    console.log(stringDate);
 
     // if movie is selected to be edited, displays data on the edit form.
     useEffect(() => {
@@ -80,8 +85,9 @@ const MovieForm = ({ currentId, setCurrentId }) => {
                     <TextField name="showTimes" variant="outlined" label="Show Times" fullWidth multiline
                                value={movieData.showTimes} onChange={(e) => setMovieData({ ...movieData, showTimes: e.target.value.split(",") })}/>
                     <div className={classes.showTimeContainer}>
-                        <TextField id="datetime-local" label="Choose show time" type="datetime-local" fullWidth
-                            defaultValue="2022-01-01T12:00" onChange={(e) => setDate(e.target.value)}/>
+                        <TextField id="datetime-local" label="Choose show time" type="datetime-local"
+                                   fullWidth InputLabelProps={{ shrink: true }} defaultValue="2022-01-01T12:00"
+                                   onChange={(e) => setDate(moment(e.target.value).format("DD/MM/YYYYTHH:mm"))}/>
                         <Button className={classes.showTimeButton} variant="contained" color="secondary" onClick={addNewDate}>Add</Button>
                     </div>
                     <div className={classes.fileInput}><FileBase type="poster" multiple={false} onDone={({ base64 }) => setMovieData({ ...movieData, poster: base64 })} /></div>
