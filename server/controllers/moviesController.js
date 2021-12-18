@@ -1,6 +1,9 @@
 import MovieModel from "../models/movieModel.js";
 import mongoose from "mongoose";
 
+import access_logger from "../conf/access_logger.js";
+import error_logger from "../conf/error_logger.js";
+
 /**
  * Returns all movies from the database by search query. Movies could be found by either title or genre.
  *
@@ -17,8 +20,10 @@ export const getMoviesBySearch = async (req, res) => {
         const movies = await MovieModel.find({$or: [{ title: query }, { genres: { $in: query }}]});
 
         res.json({ data: movies });
+        access_logger.log("info", "getMoviesBySearch");
     } catch (error) {
         res.status(404).json({ message: error.message });
+        error_logger.log(error);
     }
 }
 /**
@@ -43,8 +48,10 @@ export const getFavouriteMovies = async (req, res) => {
         })
 
         res.json({ data: favouriteMovies });
+        access_logger.log("info", "getFavouriteMovies");
     } catch (error) {
         res.status(404).json({ message: error.message });
+        error_logger.log(error);
     }
 }
 
@@ -62,8 +69,10 @@ export const getMovie = async (req, res) => {
         const movie = await MovieModel.findById(id);
 
         res.status(200).json(movie);
+        access_logger.log("info", "getMovie");
     } catch (error) {
         res.status(404).json({ message: error.message });
+        error_logger.log(error);
     }
 }
 
@@ -80,8 +89,10 @@ export const getMovies = async (req, res) => {
         const movies = await MovieModel.find();
 
         res.status(200).json(movies);
+        access_logger.log("info", "getMovies");
     } catch (error) {
         res.status(404).json({ message: error.message });
+        error_logger.log(error);
     }
 }
 
@@ -109,8 +120,10 @@ export const createMovie = async (req, res) => {
         });
 
         res.status(201).json(newMovie);
+        access_logger.log("info", "createMovie");
     } catch (error) {
         res.status(404).json({ message: error.message });
+        error_logger.log(error);
     }
 }
 /**
@@ -124,11 +137,15 @@ export const updateMovie = async (req, res) => {
     const{ _id: _id } = req.body;
     const movie = req.body;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No movie with that id: ${id}`);
+    if(!mongoose.Types.ObjectId.isValid(_id)) {
+        error_logger.log(res.status(404), `No movie with that id: ${id}`);
+        return res.status(404).send(`No movie with that id: ${id}`);
+    }
 
     const updatedMovie = await MovieModel.findByIdAndUpdate(_id, { ...movie, _id }, { new: true });
 
     res.json(updatedMovie);
+    access_logger.log("info", "updateMovie");
 }
 
 /**
@@ -141,7 +158,10 @@ export const updateMovie = async (req, res) => {
 export const deleteMovie = async (req, res) => {
     const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No movie with that id: ${id}`);
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        error_logger.log(res.status(404), `No movie with that id: ${id}`);
+        return res.status(404).send(`No movie with that id: ${id}`);
+    }
 
     await MovieModel.findByIdAndRemove(id);
 
@@ -160,7 +180,10 @@ export const favouriteMovie = async (req, res) => {
 
     if(!req.userId) return res.json({ message: "Unauthenticated" });
 
-    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No movie with that id: ${id}`);
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        error_logger.log(res.status(404), `No movie with that id: ${id}`);
+        return res.status(404).send(`No movie with that id: ${id}`);
+    }
 
     const movie = await MovieModel.findById(id);
 
