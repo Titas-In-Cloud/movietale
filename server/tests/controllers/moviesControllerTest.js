@@ -2,6 +2,7 @@ import chai from "chai";
 import sinon from "sinon";
 
 import MovieModel from "../../models/movieModel.js";
+
 import access_logger from "../../conf/access_logger.js";
 import error_logger from "../../conf/error_logger.js";
 
@@ -28,7 +29,7 @@ describe("MoviesController", () => {
 
             const query = new RegExp(req.query.searchQuery, "i");
 
-            const callMock = sinon.mock(MovieModel).expects("find").once().withArgs({$or: [{ title: query }, { genres: { $in: query }}]}).returns(
+            const callMock = sinon.mock(MovieModel).expects("find").once().withExactArgs({$or: [{ title: query }, { genres: { $in: query }}]}).returns(
                 [
                     {
                         "_id": "111",
@@ -102,7 +103,7 @@ describe("MoviesController", () => {
                 }
             };
 
-            const callMock = sinon.mock(MovieModel).expects("find").once().withArgs().returns(
+            const callMock = sinon.mock(MovieModel).expects("find").once().withExactArgs().returns(
                 [
                     {
                         "_id": "111",
@@ -194,7 +195,7 @@ describe("MoviesController", () => {
                 }
             };
 
-            const callMock = sinon.mock(MovieModel).expects("find").once().withArgs().returns(
+            const callMock = sinon.mock(MovieModel).expects("find").once().withExactArgs().returns(
                 [
                     {
                         "_id": "111",
@@ -306,7 +307,7 @@ describe("MoviesController", () => {
                 }
             };
 
-            const callMock = sinon.mock(MovieModel).expects("find").once().withArgs().returns(
+            const callMock = sinon.mock(MovieModel).expects("find").once().withExactArgs().returns(
                 [
                     {
                         "_id": "111",
@@ -376,7 +377,7 @@ describe("MoviesController", () => {
                 }
             };
 
-            const callMock = sinon.mock(MovieModel).expects("findById").once().withArgs("111").returns(
+            const callMock = sinon.mock(MovieModel).expects("findById").once().withExactArgs("111").returns(
                 {
                     "_id": "111",
                     "title": "Mock Title",
@@ -467,7 +468,7 @@ describe("MoviesController", () => {
                 }
             };
 
-            const callMock = sinon.mock(MovieModel).expects("find").once().withArgs().returns(
+            const callMock = sinon.mock(MovieModel).expects("find").once().withExactArgs().returns(
                 [
                     {
                         "_id": "111",
@@ -594,7 +595,7 @@ describe("MoviesController", () => {
                 }
             };
 
-            const callMock = sinon.mock(MovieModel).expects("create").once().withArgs({
+            const callMock = sinon.mock(MovieModel).expects("create").once().withExactArgs({
                 title: "Mock Title",
                 description: "Mock Description",
                 releaseYear: "2022",
@@ -671,7 +672,7 @@ describe("MoviesController", () => {
                 }
             }
 
-            const callMock = sinon.mock(MovieModel).expects("create").once().withArgs({
+            const callMock = sinon.mock(MovieModel).expects("create").once().withExactArgs({
                 title: "Mock Title",
                 description: undefined,
                 releaseYear: "2022",
@@ -722,7 +723,7 @@ describe("MoviesController", () => {
                 }
             };
 
-            const callMock = sinon.mock(MovieModel).expects("findByIdAndUpdate").once().withArgs("111222333444555666777888",
+            const callMock = sinon.mock(MovieModel).expects("findByIdAndUpdate").once().withExactArgs("111222333444555666777888",
                 {
                     _id: '111222333444555666777888',
                     title: 'Mock Title',
