@@ -1,6 +1,7 @@
 import express from "express";
 
-import { getMoviesBySearch, getFavouriteMovies, getMovie, getMovies, createMovie, updateMovie, deleteMovie, favouriteMovie } from "../controllers/moviesController.js";
+import { getMoviesBySearch, getFavouriteMovies, getMovie, getMovies,
+    createMovie, updateMovie, deleteMovie, favouriteMovie } from "../controllers/moviesController.js";
 import auth from "../middleware/auth.js";
 
 const router = express.Router();

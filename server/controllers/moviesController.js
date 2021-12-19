@@ -19,7 +19,7 @@ export const getMoviesBySearch = async (req, res) => {
 
         const movies = await MovieModel.find({$or: [{ title: query }, { genres: { $in: query }}]});
 
-        res.json({ data: movies });
+        res.status(200).json({ data: movies });
         access_logger.log("info", "getMoviesBySearch");
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -47,7 +47,7 @@ export const getFavouriteMovies = async (req, res) => {
             })
         })
 
-        res.json({ data: favouriteMovies });
+        res.status(200).json({ data: favouriteMovies });
         access_logger.log("info", "getFavouriteMovies");
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -134,17 +134,17 @@ export const createMovie = async (req, res) => {
  * @returns {Promise<*>} updated movie object.
  */
 export const updateMovie = async (req, res) => {
-    const{ _id: _id } = req.body;
+    const { _id: _id } = req.body;
     const movie = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(_id)) {
-        error_logger.log(res.status(404), `No movie with that id: ${id}`);
-        return res.status(404).send(`No movie with that id: ${id}`);
+        error_logger.log("error", `No movie with that id: ${_id}`);
+        return res.status(404).json(`No movie with that id: ${_id}`);
     }
 
     const updatedMovie = await MovieModel.findByIdAndUpdate(_id, { ...movie, _id }, { new: true });
 
-    res.json(updatedMovie);
+    res.status(200).json(updatedMovie);
     access_logger.log("info", "updateMovie");
 }
 
@@ -159,13 +159,14 @@ export const deleteMovie = async (req, res) => {
     const { id } = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(id)) {
-        error_logger.log(res.status(404), `No movie with that id: ${id}`);
-        return res.status(404).send(`No movie with that id: ${id}`);
+        error_logger.log("error", `No movie with that id: ${id}`);
+        return res.status(404).json(`No movie with that id: ${id}`);
     }
 
     await MovieModel.findByIdAndRemove(id);
 
-    res.json({ message: "Movie deleted successfully" });
+    res.status(200).json({ message: "Movie deleted successfully" });
+    access_logger.log("info", "deleteMovie");
 }
 
 /**
@@ -181,8 +182,8 @@ export const favouriteMovie = async (req, res) => {
     if(!req.userId) return res.json({ message: "Unauthenticated" });
 
     if(!mongoose.Types.ObjectId.isValid(id)) {
-        error_logger.log(res.status(404), `No movie with that id: ${id}`);
-        return res.status(404).send(`No movie with that id: ${id}`);
+        error_logger.log("error", `No movie with that id: ${id}`);
+        return res.status(404).json(`No movie with that id: ${id}`);
     }
 
     const movie = await MovieModel.findById(id);
@@ -199,5 +200,6 @@ export const favouriteMovie = async (req, res) => {
 
     const updatedMovie = await MovieModel.findByIdAndUpdate(id, movie, { new: true });
 
-    res.json(updatedMovie);
+    res.status(200).json(updatedMovie);
+    access_logger.log("info", "favouriteMovie");
 }
