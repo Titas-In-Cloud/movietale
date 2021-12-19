@@ -25,7 +25,7 @@ const DateButtons = () => {
             <Button className={activeButton === 0 ? classes.activeCalendarButton : classes.calendarButton}
                     variant="contained" disableRipple disableElevation onClick={() => setActiveButton(0)}>
                 <div>{date}</div>
-                <div className={classes.weekday}>{days[ (day - 1) % 7 ]}</div>
+                <div className={classes.weekday}>{days[ (day + 6) % 7 ]}</div>
             </Button>
             <Button className={activeButton === 1 ? classes.activeCalendarButton : classes.calendarButton}
                     variant="contained" disableRipple disableElevation onClick={() => setActiveButton(1)}>
