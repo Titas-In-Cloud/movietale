@@ -4,11 +4,16 @@ jobs:
   check_code_request:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 14
-      - run: cd server
-      - run: npm ci
-      - run: npm test
-      - run: npm start
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          check-latest: true
+      - name: Install dependancies
+        run: cd server && npm ci
+      - name: Run Mocha tests
+        run: npm test
+      - name: Start the server application
+        run: npm start
