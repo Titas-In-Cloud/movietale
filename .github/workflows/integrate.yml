@@ -14,6 +14,8 @@ jobs:
       - name: Install dependancies
         run: cd server && npm ci
       - name: Run Mocha tests
-        run: npm test
+        run: cd server && npm test
       - name: Start the server application
-        run: npm start
+        run: cd server && npm start
+      - name: Start the client application
+        run: cd client && npm start
