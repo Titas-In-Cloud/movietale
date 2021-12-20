@@ -11,7 +11,7 @@ const database_logger = winston.createLogger({
     format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
     transports: [
         new winston.transports.File({
-            filename: "logs/database.log",
+            filename: "src/logs/database.log",
             format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
         }),
     ]

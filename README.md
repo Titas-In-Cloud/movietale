@@ -14,7 +14,23 @@ customers about featured movies, upcoming movies and show times. It was develope
 *Newcastle University*.
 
 ## Installation
-Coming soon...
+To set up the project you need to have _Docker_ installed, to do this you can get to know more 
+[here](https://docs.docker.com/get-docker/).
+
+After your _Docker_ is set up, all you need to do to launch the application is to run the following command in 
+the main directory of the project: 
+
+> docker-compose up
+
+It will install all required dependencies for the project and start the database, server and client sides. 
+Once it finishes to load, go to [http://localhost:3000](http://localhost:3000) or click the link in the
+Terminal.
+
+To run the unit tests, go to '/server' directory and run following command in the Terminal:
+
+> npm test
+
+This will run all unit tests and will output which ones pass and which ones fail.
 
 ## Usage
 The web application has different pages for regular users, logged-in users and admin users. Below I will explain
