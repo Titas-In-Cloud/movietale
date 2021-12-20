@@ -1,7 +1,7 @@
 name: Movietale Continuous Integration
 on: [push, pull_request]
 jobs:
-  check_push_request:
+  check_push_or_pull_request:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
