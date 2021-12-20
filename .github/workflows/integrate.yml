@@ -15,7 +15,10 @@ jobs:
         run: cd server && npm ci
       - name: Install client dependancies
         run: cd client && npm ci
+      - name: Build docker Containers
+        run: docker-compose -f docker-compose.yml up --build
       - name: Run Mocha tests
         run: cd server && npm test
-      - name: Build docker Container
-        run: docker-compose -f docker-compose.yml up --build
+      - name: Stop Containers
+        if: always()
+        run: docker-compose down
