@@ -17,6 +17,7 @@ customers about featured movies, upcoming movies and show times. It was develope
 To set up the project you need to have _Docker_ installed, to do this you can get to know more 
 [here](https://docs.docker.com/get-docker/).
 
+### Running the application
 After your _Docker_ is set up, all you need to do to launch the application is to run the following command in 
 the main directory of the project: 
 
@@ -26,16 +27,22 @@ It will install all required dependencies for the project and start the database
 Once it finishes to load, go to [http://localhost:3000](http://localhost:3000) or click the link in the
 Terminal.
 
+### Running tests
 To run the unit tests, go to '/server' directory and run following command in the Terminal:
 
 > npm test
 
 This will run all unit tests and will output which ones pass and which ones fail.
 
+### Stopping the application.
+To stop the application press **CTRL+C**. This will close all _Docker_ container and will stop database,
+server and client sides.
+
 ## Usage
 The web application has different pages for regular users, logged-in users and admin users. Below I will explain
 what each type of user will be able to do on this cinema website.
 
+----
 ### Regular user
 The website for regular users will look very similar to users who are logged in, however, some functionality
 can only be accessed once you log in.
@@ -77,7 +84,7 @@ to be unique, and a password which needs to be minimum of 6 characters long. Pro
 the user will be prompted with a warning message. Trying to log-in with wrong credentials' user will be prompted
 by a warning message.
 
-
+----
 ### Logged-in user
 Logged-in user has all the functionality that the regular user has, however, he has an extra page called 
 _Favourites_ which shows all the movies that the user has liked and functionality of adding liked movies to
@@ -97,6 +104,7 @@ _**Disclaimer!**_ the heart button and _Favourites_ page is only shown to logged
 To log out the user has to press logout button on the top navigation bar. The button changes states to either be
 _Login_ to regular user and _Logout_ to logged-in user.
 
+----
 ### Admin
 The website has an admin page where the maintainers of the project can upload new movie posters, edit or delete
 the current ones. The admin page can be reached with the email and password below, and it is integrated on the 
@@ -134,6 +142,7 @@ the poster will be deleted from the database.
 To go back to the main client side just press logout button, and you will be logged out. You will return to
 regular client side.
 
+----
 ### License
 This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/) see the LICENSE.md file
 for more details.
