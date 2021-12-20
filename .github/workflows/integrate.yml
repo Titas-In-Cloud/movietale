@@ -4,11 +4,11 @@ jobs:
   check_code_request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-        - run: cd server
-        - run: npm ci
-        - run: npm test
-        - run: npm start
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
+      - run: cd server
+      - run: npm ci
+      - run: npm test
+      - run: npm start
