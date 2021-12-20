@@ -1,5 +1,5 @@
 name: Movietale Continuous Integration
-on: [push]
+on: [push, pull_request]
 jobs:
   check_push_request:
     runs-on: ubuntu-latest
@@ -15,10 +15,10 @@ jobs:
         run: cd server && npm ci
       - name: Install client dependancies
         run: cd client && npm ci
-      - name: Build docker Containers
-        run: docker-compose -f docker-compose.yml up --build
+      - name: Build Docker Containers
+        run: docker-compose -f docker-compose.yml up --build -d
       - name: Run Mocha tests
         run: cd server && npm test
-      - name: Stop Containers
+      - name: Stop Docker Containers
         if: always()
         run: docker-compose down
