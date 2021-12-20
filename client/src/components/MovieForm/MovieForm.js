@@ -26,10 +26,6 @@ const MovieForm = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const newDate = new Date();
-    const stringDate = newDate.toLocaleDateString();
-    console.log(stringDate);
-
     // if movie is selected to be edited, displays data on the edit form.
     useEffect(() => {
         if(movie) setMovieData(movie)
