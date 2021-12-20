@@ -18,4 +18,4 @@ jobs:
       - name: Run Mocha tests
         run: cd server && npm test
       - name: Build docker Container
-        run: docker-compose -f docker-compose.yml up --build p
+        run: docker-compose -f docker-compose.yml up --build
