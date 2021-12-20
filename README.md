@@ -28,9 +28,9 @@ Once it finishes to load, go to [http://localhost:3000](http://localhost:3000) o
 Terminal.
 
 ### Running tests
-To run the unit tests, go to '/server' directory and run following command in the Terminal:
+To run the unit tests, run the following command from the main directory in the Terminal:
 
-> npm test
+> cd server && npm test
 
 This will run all unit tests and will output which ones pass and which ones fail.
 
